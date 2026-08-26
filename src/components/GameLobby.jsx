@@ -3,8 +3,6 @@ import logo from '../assets/kingdom-logo2.png'
 import './GameLobby.css'
 
 export default function GameLobby({ session, gameState, onStart, onLeave }) {
-  const [innocentWord, setInnocentWord] = useState('')
-  const [outsiderWord, setOutsiderWord] = useState('')
   const [starting, setStarting] = useState(false)
 
   const players = gameState?.players ?? []
@@ -16,12 +14,7 @@ export default function GameLobby({ session, gameState, onStart, onLeave }) {
 
   const handleStart = async () => {
     setStarting(true)
-    const opts = {}
-    if (innocentWord.trim() && outsiderWord.trim()) {
-      opts.innocentWord = innocentWord.trim()
-      opts.outsiderWord = outsiderWord.trim()
-    }
-    await onStart(opts)
+    await onStart({})
     setStarting(false)
   }
 
@@ -76,35 +69,6 @@ export default function GameLobby({ session, gameState, onStart, onLeave }) {
         </section>
 
         <section className="lobby__start card">
-          <div className="section-title">Palabras personalizadas</div>
-          <p className="lobby__word-hint text-muted">
-            Deja ambos campos vacíos para usar palabras aleatorias.
-          </p>
-          <div className="lobby__word-fields">
-            <div>
-              <label className="lobby__field-label">Palabra Inocente</label>
-              <input
-                className="input"
-                type="text"
-                placeholder="Ej: Dragón"
-                maxLength={30}
-                value={innocentWord}
-                onChange={(e) => setInnocentWord(e.target.value)}
-              />
-            </div>
-            <div>
-              <label className="lobby__field-label">Palabra Forastero</label>
-              <input
-                className="input"
-                type="text"
-                placeholder="Ej: Lagarto"
-                maxLength={30}
-                value={outsiderWord}
-                onChange={(e) => setOutsiderWord(e.target.value)}
-              />
-            </div>
-          </div>
-
           <button
             className="btn btn-gold btn-lg lobby__start-btn"
             disabled={!canStart || starting}
