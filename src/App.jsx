@@ -60,6 +60,7 @@ export default function App() {
         fetchMyState()
         break
       case 'PLAYER_JOINED':
+      case 'PLAYER_LEFT':
         fetchGameState()
         break
       case 'DRAWER_CHANGED':
@@ -137,12 +138,17 @@ export default function App() {
     }
   }, [session, fetchMyState])
 
-  const handleLeaveGame = useCallback(() => {
+  const handleLeaveGame = useCallback(async () => {
+    if (session?.gameCode && session?.token) {
+      try { await api.leaveGame(session.gameCode, session.token) } catch (_) {}
+    }
+    localStorage.removeItem(SESSION_KEY)
+    setSession(null)
     setGameState(null)
     setMyState(null)
     setNightResult(null)
     setView('landing')
-  }, [])
+  }, [session])
 
   // ── Resume a stored game on first load ───────────────────────────
   useEffect(() => {

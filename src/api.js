@@ -49,6 +49,12 @@ export const api = {
       body: JSON.stringify({ actionType, targetNickname }),
     }),
 
+  leaveGame: (code, token) =>
+    request(`/games/${code}/leave`, {
+      method: 'DELETE',
+      headers: { 'X-Session-Token': token },
+    }),
+
   submitGuess: (code, token, word) =>
     request(`/games/${code}/guess`, {
       method: 'POST',
