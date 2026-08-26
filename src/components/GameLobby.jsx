@@ -69,6 +69,10 @@ export default function GameLobby({ session, gameState, onStart, onLeave }) {
         </section>
 
         <section className="lobby__start card">
+          <div className="lobby__teaser">
+            <img src={logo} alt="Kingdom" className="lobby__teaser-logo" />
+            <p className="lobby__teaser-text">Estás a punto de vivir una experiencia peligrosa.</p>
+          </div>
           <button
             className="btn btn-gold btn-lg lobby__start-btn"
             disabled={!canStart || starting}
