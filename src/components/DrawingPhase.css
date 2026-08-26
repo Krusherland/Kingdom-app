@@ -24,6 +24,26 @@
   white-space: nowrap;
 }
 
+.drawing-phase__timer {
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  min-width: 2.5rem;
+  text-align: center;
+}
+
+.drawing-phase__timer--urgent {
+  color: #e05c5c;
+  animation: timer-pulse 0.8s ease-in-out infinite;
+}
+
+@keyframes timer-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
 .drawing-phase__status {
   display: flex;
   align-items: center;

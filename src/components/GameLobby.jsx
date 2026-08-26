@@ -4,17 +4,17 @@ import './GameLobby.css'
 
 export default function GameLobby({ session, gameState, onStart, onLeave }) {
   const [starting, setStarting] = useState(false)
+  const [drawingTime, setDrawingTime] = useState(40)
 
   const players = gameState?.players ?? []
-  const isHost = gameState && session?.token
-  // We detect host by checking if our nickname is first in players (draw order 0)
+  const isHost = players[0]?.nickname === session?.nickname
   // The backend doesn't expose isHost publicly, so we rely on trying to start
   const playerCount = players.length
   const canStart = playerCount >= 6
 
   const handleStart = async () => {
     setStarting(true)
-    await onStart({})
+    await onStart({ drawingTimeSecs: drawingTime })
     setStarting(false)
   }
 
@@ -73,6 +73,23 @@ export default function GameLobby({ session, gameState, onStart, onLeave }) {
             <img src={logo} alt="Kingdom" className="lobby__teaser-logo" />
             <p className="lobby__teaser-text">Estás a punto de vivir una experiencia peligrosa.</p>
           </div>
+
+          {isHost && (
+            <div className="lobby__setting">
+              <span className="lobby__setting-label">Tiempo de dibujo</span>
+              <div className="lobby__time-picker">
+                {[20, 40, 60].map(t => (
+                  <button
+                    key={t}
+                    className={`lobby__time-btn${drawingTime === t ? ' lobby__time-btn--active' : ''}`}
+                    onClick={() => setDrawingTime(t)}
+                  >
+                    {t}s
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
           <button
             className="btn btn-gold btn-lg lobby__start-btn"
             disabled={!canStart || starting}

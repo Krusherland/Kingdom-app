@@ -161,3 +161,42 @@
 
 .lobby__start-btn { width: 100%; margin-bottom: 0.75rem; }
 .lobby__leave-btn { width: 100%; }
+
+.lobby__setting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.lobby__setting-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.lobby__time-picker {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.lobby__time-btn {
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 3px;
+  background: var(--surface-1);
+  color: var(--text-muted);
+  font-family: 'Cinzel', serif;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.lobby__time-btn--active {
+  border-color: var(--gold);
+  color: var(--gold);
+}

@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import RoleCard from './RoleCard'
 import DrawingCanvas from './DrawingCanvas'
 import './DrawingPhase.css'
@@ -15,6 +16,15 @@ export default function DrawingPhase({
   const currentDrawer = gameState?.currentDrawerNickname
   const isDrawer = currentDrawer === session?.nickname
   const players = gameState?.players ?? []
+  const drawingTimeSecs = gameState?.drawingTimeSecs ?? 40
+
+  const [timeLeft, setTimeLeft] = useState(drawingTimeSecs)
+
+  useEffect(() => {
+    setTimeLeft(drawingTimeSecs)
+    const id = setInterval(() => setTimeLeft(t => Math.max(0, t - 1)), 1000)
+    return () => clearInterval(id)
+  }, [currentDrawer, drawingTimeSecs])
 
   const handleDone = () => {
     sendDoneDrawing()
@@ -33,6 +43,9 @@ export default function DrawingPhase({
       <header className="drawing-phase__header">
         <div className="drawing-phase__round">
           Ronda {gameState?.currentRound} / {gameState?.totalRounds}
+        </div>
+        <div className={`drawing-phase__timer${timeLeft <= 10 ? ' drawing-phase__timer--urgent' : ''}`}>
+          {timeLeft}s
         </div>
         <div className="drawing-phase__status">
           {isDrawer ? (
