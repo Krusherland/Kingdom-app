@@ -1,9 +1,10 @@
 const BASE = `${import.meta.env.VITE_API_URL}/api`
 
 async function request(path, options = {}) {
+  const { headers: extraHeaders, ...rest } = options
   const res = await fetch(`${BASE}${path}`, {
-    headers: { 'Content-Type': 'application/json', ...options.headers },
-    ...options,
+    headers: { 'Content-Type': 'application/json', ...extraHeaders },
+    ...rest,
   })
   if (!res.ok) {
     let msg = res.statusText
