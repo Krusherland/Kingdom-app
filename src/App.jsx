@@ -199,6 +199,15 @@ export default function App() {
           onLeave={handleLeaveGame}
         />
       )}
+      {(status === 'DRAWING' || status === 'NIGHT' || status === 'WORD_GUESS') && (
+        <button
+          className="btn btn-ghost exit-game-btn"
+          onClick={() => { if (window.confirm('¿Salir de la partida en curso?')) handleLeaveGame() }}
+        >
+          🚪 Salir
+        </button>
+      )}
+
       {status === 'DRAWING' && (
         <DrawingPhase
           session={session}

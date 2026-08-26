@@ -53,6 +53,17 @@
   margin-bottom: 1rem;
 }
 
+.exit-game-btn {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 100;
+  font-size: 0.8rem;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.exit-game-btn:hover { opacity: 1; }
+
 .ws-indicator {
   position: fixed;
   bottom: 1rem;
