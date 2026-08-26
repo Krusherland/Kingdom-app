@@ -64,6 +64,57 @@
 }
 .exit-game-btn:hover { opacity: 1; }
 
+.exit-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(3px);
+}
+
+.exit-modal {
+  background: var(--surface-2);
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.6), 0 0 20px var(--gold-glow);
+  padding: 2rem 2rem 1.5rem;
+  max-width: 380px;
+  width: 90%;
+  text-align: center;
+  animation: modal-in 0.18s ease-out;
+}
+
+@keyframes modal-in {
+  from { opacity: 0; transform: scale(0.93) translateY(-8px); }
+  to   { opacity: 1; transform: scale(1)   translateY(0);     }
+}
+
+.exit-modal__title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.2rem;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.75rem;
+}
+
+.exit-modal__body {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.exit-modal__actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.exit-modal__actions .btn { min-width: 110px; }
+
 .ws-indicator {
   position: fixed;
   bottom: 1rem;

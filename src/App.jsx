@@ -26,6 +26,7 @@ export default function App() {
   const [nightResult, setNightResult] = useState(null)
   const [lastStroke, setLastStroke] = useState(null)
   const [roleCardDismissed, setRoleCardDismissed] = useState(false)
+  const [showExitModal, setShowExitModal] = useState(false)
 
   const inGame = view === 'game' && !!session?.gameCode
 
@@ -202,10 +203,23 @@ export default function App() {
       {(status === 'DRAWING' || status === 'NIGHT' || status === 'WORD_GUESS') && (
         <button
           className="btn btn-ghost exit-game-btn"
-          onClick={() => { if (window.confirm('¿Salir de la partida en curso?')) handleLeaveGame() }}
+          onClick={() => setShowExitModal(true)}
         >
           🚪 Salir
         </button>
+      )}
+
+      {showExitModal && (
+        <div className="exit-modal-backdrop" onClick={() => setShowExitModal(false)}>
+          <div className="exit-modal" onClick={e => e.stopPropagation()}>
+            <h3 className="exit-modal__title">¿Abandonar la partida?</h3>
+            <p className="exit-modal__body">Serás expulsado del reino. La partida continuará sin ti.</p>
+            <div className="exit-modal__actions">
+              <button className="btn btn-ghost" onClick={() => setShowExitModal(false)}>Quedarse</button>
+              <button className="btn btn-danger" onClick={() => { setShowExitModal(false); handleLeaveGame() }}>Abandonar</button>
+            </div>
+          </div>
+        </div>
       )}
 
       {status === 'DRAWING' && (
