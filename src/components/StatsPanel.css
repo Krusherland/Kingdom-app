@@ -1,0 +1,165 @@
+.stats {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-deep);
+  padding: 1.5rem 1rem;
+}
+
+.stats__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.stats__back {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.stats__crown {
+  font-size: 2rem;
+  margin-bottom: 0.3rem;
+}
+
+.stats__header h2 { font-size: 1.6rem; letter-spacing: 0.1em; }
+
+.stats__tabs {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 600px;
+  margin: 0 auto 1.5rem;
+  width: 100%;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0;
+}
+
+.stats__tab {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 0.5rem 1rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  cursor: pointer;
+  margin-bottom: -1px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.stats__tab:hover { color: var(--text-primary); }
+.stats__tab--active { color: var(--gold); border-bottom-color: var(--gold); }
+
+.stats__body {
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.stats__loading {
+  text-align: center;
+  padding: 2rem;
+  font-style: italic;
+}
+
+.stats__no-data {
+  text-align: center;
+  padding: 2rem;
+}
+
+.stats__personal {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.stats__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  text-align: center;
+}
+
+.stats__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.stats__val {
+  font-family: 'Cinzel', serif;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.stats__label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.stats__roles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.stats__role-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.stats__role-bar-wrap {
+  flex: 1;
+  height: 6px;
+  background: var(--surface-1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.stats__role-bar {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.6s ease;
+  min-width: 2px;
+}
+.stats__role-bar[data-role='plebeian']   { background: var(--role-plebeian); }
+.stats__role-bar[data-role='alchemist']  { background: var(--role-alchemist); }
+.stats__role-bar[data-role='royal_guard'] { background: var(--role-guard); }
+.stats__role-bar[data-role='outsider']   { background: var(--role-outsider); }
+
+.stats__role-count { font-size: 0.82rem; min-width: 2rem; text-align: right; }
+
+/* Leaderboard */
+.stats__lb-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.stats__lb-table th {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding: 0.4rem 0.5rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.stats__lb-table td {
+  padding: 0.5rem 0.5rem;
+  border-bottom: 1px solid var(--surface-1);
+}
+
+.stats__lb-me td { background: var(--gold-dim); }
+
+.stats__lb-table tr:last-child td { border-bottom: none; }

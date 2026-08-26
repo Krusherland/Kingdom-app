@@ -1,0 +1,239 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-deep:    #0a0603;
+  --bg-main:    #130c04;
+  --surface-1:  #1e1409;
+  --surface-2:  #2a1d0e;
+  --surface-3:  #362513;
+  --surface-hover: #3f2d18;
+
+  --gold:       #c9a227;
+  --gold-light: #e8c84a;
+  --gold-dark:  #7a6218;
+  --gold-dim:   rgba(201, 162, 39, 0.12);
+  --gold-glow:  rgba(201, 162, 39, 0.35);
+
+  --text-primary: #f0e6d3;
+  --text-muted:   #9c8566;
+  --text-dim:     #5a4a35;
+
+  --role-plebeian:  #c49a52;
+  --role-alchemist: #a06dc8;
+  --role-guard:     #4a85c8;
+  --role-outsider:  #c83030;
+
+  --danger:  #c83030;
+  --success: #3a8a3a;
+  --info:    #4a85c8;
+
+  --border:        rgba(201, 162, 39, 0.2);
+  --border-strong: rgba(201, 162, 39, 0.45);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.65);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.75);
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 18px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Cinzel', Georgia, serif;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--gold);
+  line-height: 1.2;
+}
+
+button {
+  cursor: pointer;
+  font-family: 'Cinzel', Georgia, serif;
+  border: none;
+  outline: none;
+}
+
+input, textarea {
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 1rem;
+}
+
+a { color: var(--gold); text-decoration: none; }
+a:hover { color: var(--gold-light); }
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--surface-1); }
+::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
+
+/* ── Buttons ─────────────────────────────────────────────────── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4em;
+  padding: 0.45em 1.4em;
+  border-radius: 3px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: all 0.2s;
+  border: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 100%);
+  color: var(--bg-deep);
+  border-color: var(--gold);
+}
+.btn-gold:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+  box-shadow: 0 0 14px var(--gold-glow);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--gold);
+  border-color: var(--border-strong);
+}
+.btn-outline:hover:not(:disabled) {
+  background: var(--gold-dim);
+  border-color: var(--gold);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #6a1010 0%, var(--danger) 100%);
+  color: var(--text-primary);
+  border-color: #d04040;
+}
+.btn-danger:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--danger) 0%, #e04040 100%);
+  box-shadow: 0 0 14px rgba(200, 48, 48, 0.4);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border-color: transparent;
+}
+.btn-ghost:hover:not(:disabled) {
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+.btn:disabled { opacity: 0.38; cursor: not-allowed; }
+.btn-sm { padding: 0.3em 1em; font-size: 0.75rem; }
+.btn-lg { padding: 0.65em 2em; font-size: 0.92rem; }
+
+/* ── Card ────────────────────────────────────────────────────── */
+
+.card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+}
+
+/* ── Overlay ─────────────────────────────────────────────────── */
+
+.overlay-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.78);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  backdrop-filter: blur(5px);
+}
+
+/* ── Typography helpers ───────────────────────────────────────── */
+
+.text-gold    { color: var(--gold); }
+.text-muted   { color: var(--text-muted); }
+.text-danger  { color: var(--danger); }
+.text-success { color: var(--success); }
+.text-info    { color: var(--info); }
+
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 1rem 0;
+}
+
+/* ── Role badges ──────────────────────────────────────────────── */
+
+.badge {
+  display: inline-block;
+  padding: 0.15em 0.6em;
+  border-radius: 2px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.badge-plebeian  { background: rgba(196,154,82,0.18);  color: var(--role-plebeian);  border: 1px solid rgba(196,154,82,0.4); }
+.badge-alchemist { background: rgba(160,109,200,0.18); color: var(--role-alchemist); border: 1px solid rgba(160,109,200,0.4); }
+.badge-guard     { background: rgba(74,133,200,0.18);  color: var(--role-guard);     border: 1px solid rgba(74,133,200,0.4); }
+.badge-outsider  { background: rgba(200,48,48,0.18);   color: var(--role-outsider);  border: 1px solid rgba(200,48,48,0.4); }
+
+/* ── Input ────────────────────────────────────────────────────── */
+
+.input {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--text-primary);
+  padding: 0.5em 0.8em;
+  font-size: 1rem;
+  width: 100%;
+  transition: border-color 0.2s;
+}
+.input:focus {
+  border-color: var(--gold-dark);
+  box-shadow: 0 0 0 2px var(--gold-dim);
+}
+.input::placeholder { color: var(--text-dim); }
+
+/* ── Decorative section title ─────────────────────────────────── */
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+.section-title::before,
+.section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+

@@ -1,0 +1,137 @@
+.dc {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.dc__canvas-wrap {
+  position: relative;
+  width: 100%;
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  background: #fff;
+  /* Maintain 800:500 aspect ratio */
+  aspect-ratio: 8 / 5;
+}
+
+.dc__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+.dc__canvas--active {
+  cursor: crosshair;
+}
+
+/* ── Toolbar ───────────────────────────────────────────────── */
+
+.dc__toolbar {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.6rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.dc__timer {
+  position: relative;
+  height: 18px;
+  background: var(--surface-2);
+  border-radius: 2px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dc__timer-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  transition: width 1s linear, background 0.5s;
+  opacity: 0.5;
+}
+
+.dc__timer-text {
+  position: relative;
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--tc, var(--gold));
+  letter-spacing: 0.08em;
+  z-index: 1;
+}
+
+.dc__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.dc__colors {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.dc__color-swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.dc__color-swatch:hover { transform: scale(1.15); }
+.dc__color-swatch--active {
+  outline-color: var(--gold);
+  transform: scale(1.15);
+  box-shadow: 0 0 6px var(--gold-glow);
+}
+
+.dc__sizes {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dc__size-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.dc__size-btn:hover { border-color: var(--gold-dark); }
+.dc__size-btn--active { border-color: var(--gold); background: var(--gold-dim); }
+
+.dc__tools {
+  display: flex;
+  gap: 0.4rem;
+  margin-left: auto;
+}
+
+.dc__observe-hint {
+  text-align: center;
+  font-style: italic;
+  font-size: 0.88rem;
+  padding: 0.3rem 0;
+}

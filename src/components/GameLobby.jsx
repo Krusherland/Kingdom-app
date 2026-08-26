@@ -1,0 +1,123 @@
+import { useState } from 'react'
+import logo from '../assets/kingdom-logo2.png'
+import './GameLobby.css'
+
+export default function GameLobby({ session, gameState, onStart, onLeave }) {
+  const [innocentWord, setInnocentWord] = useState('')
+  const [outsiderWord, setOutsiderWord] = useState('')
+  const [starting, setStarting] = useState(false)
+
+  const players = gameState?.players ?? []
+  const isHost = gameState && session?.token
+  // We detect host by checking if our nickname is first in players (draw order 0)
+  // The backend doesn't expose isHost publicly, so we rely on trying to start
+  const playerCount = players.length
+  const canStart = playerCount >= 6
+
+  const handleStart = async () => {
+    setStarting(true)
+    const opts = {}
+    if (innocentWord.trim() && outsiderWord.trim()) {
+      opts.innocentWord = innocentWord.trim()
+      opts.outsiderWord = outsiderWord.trim()
+    }
+    await onStart(opts)
+    setStarting(false)
+  }
+
+  return (
+    <div className="lobby">
+      <header className="lobby__header">
+        <img src={logo} alt="Kingdom" className="lobby__crown" />
+        <h1>Kingdom</h1>
+        <div className="lobby__code-row">
+          <span className="lobby__code-label text-muted">Código de sala</span>
+          <span className="lobby__code">{gameState?.gameCode}</span>
+          <button
+            className="btn btn-sm btn-ghost lobby__copy"
+            title="Copiar código"
+            onClick={() => navigator.clipboard?.writeText(gameState?.gameCode ?? '')}
+          >
+            📋
+          </button>
+        </div>
+      </header>
+
+      <div className="lobby__body">
+        <section className="lobby__players card">
+          <div className="section-title">
+            Jugadores ({playerCount} / 8)
+          </div>
+          <ul className="lobby__player-list">
+            {players.map((p, i) => (
+              <li key={p.nickname} className="lobby__player">
+                <span className="lobby__player-order">{i + 1}</span>
+                <span className="lobby__player-name">
+                  {p.nickname}
+                  {p.nickname === session?.nickname && (
+                    <span className="lobby__you text-muted"> (tú)</span>
+                  )}
+                </span>
+                {i === 0 && <span className="badge badge-guard">Anfitrión</span>}
+              </li>
+            ))}
+            {Array.from({ length: Math.max(0, 6 - playerCount) }).map((_, i) => (
+              <li key={`empty-${i}`} className="lobby__player lobby__player--empty">
+                <span className="lobby__player-order">{playerCount + i + 1}</span>
+                <span className="text-dim">Esperando jugador…</span>
+              </li>
+            ))}
+          </ul>
+          {!canStart && (
+            <p className="lobby__hint text-muted">
+              Se necesitan al menos 6 jugadores para comenzar.
+            </p>
+          )}
+        </section>
+
+        <section className="lobby__start card">
+          <div className="section-title">Palabras personalizadas</div>
+          <p className="lobby__word-hint text-muted">
+            Deja ambos campos vacíos para usar palabras aleatorias.
+          </p>
+          <div className="lobby__word-fields">
+            <div>
+              <label className="lobby__field-label">Palabra Inocente</label>
+              <input
+                className="input"
+                type="text"
+                placeholder="Ej: Dragón"
+                maxLength={30}
+                value={innocentWord}
+                onChange={(e) => setInnocentWord(e.target.value)}
+              />
+            </div>
+            <div>
+              <label className="lobby__field-label">Palabra Forastero</label>
+              <input
+                className="input"
+                type="text"
+                placeholder="Ej: Lagarto"
+                maxLength={30}
+                value={outsiderWord}
+                onChange={(e) => setOutsiderWord(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <button
+            className="btn btn-gold btn-lg lobby__start-btn"
+            disabled={!canStart || starting}
+            onClick={handleStart}
+          >
+            {starting ? 'Iniciando…' : '⚔ Comenzar Partida'}
+          </button>
+
+          <button className="btn btn-ghost lobby__leave-btn" onClick={onLeave}>
+            Salir del reino
+          </button>
+        </section>
+      </div>
+    </div>
+  )
+}

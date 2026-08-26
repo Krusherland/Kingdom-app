@@ -1,0 +1,121 @@
+.drawing-phase {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-main);
+}
+
+.drawing-phase__header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--surface-1);
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.drawing-phase__round {
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.drawing-phase__status {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  font-size: 1rem;
+}
+
+.drawing-phase__your-turn {
+  color: var(--gold);
+  font-family: 'Cinzel', serif;
+  font-size: 0.88rem;
+  letter-spacing: 0.06em;
+}
+
+.drawing-phase__word {
+  background: var(--surface-2);
+  border: 1px solid var(--border-strong);
+  border-radius: 3px;
+  padding: 0.2em 0.75em;
+  font-size: 0.95rem;
+}
+.drawing-phase__word strong {
+  color: var(--gold);
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.06em;
+}
+
+.drawing-phase__body {
+  display: flex;
+  flex: 1;
+  gap: 1rem;
+  padding: 1rem;
+  align-items: flex-start;
+}
+
+.drawing-phase__sidebar {
+  width: 180px;
+  flex-shrink: 0;
+}
+
+.drawing-phase__player-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.drawing-phase__player {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 3px;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  font-size: 0.9rem;
+  transition: border-color 0.2s;
+}
+
+.drawing-phase__player--drawing {
+  border-color: var(--gold-dark);
+  background: var(--gold-dim);
+}
+
+.drawing-phase__player--dead {
+  opacity: 0.4;
+}
+
+.drawing-phase__player-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--success);
+  flex-shrink: 0;
+}
+.drawing-phase__player--dead .drawing-phase__player-dot {
+  background: var(--text-dim);
+}
+
+.drawing-phase__player-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drawing-phase__pen {
+  font-size: 0.85rem;
+}
+
+@media (max-width: 640px) {
+  .drawing-phase__body { flex-direction: column; }
+  .drawing-phase__sidebar { width: 100%; }
+}

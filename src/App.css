@@ -1,0 +1,77 @@
+.app-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 1rem;
+  color: var(--gold);
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.1em;
+}
+
+.app-loading__dots {
+  display: flex;
+  gap: 0.4rem;
+}
+.app-loading__dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold-dark);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+.app-loading__dots span:nth-child(2) { animation-delay: 0.2s; }
+.app-loading__dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes pulse {
+  0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+  40%           { opacity: 1;   transform: scale(1); }
+}
+
+.night-result-card {
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+}
+.night-result-card h2 { margin-bottom: 1.2rem; }
+.night-result-card ul { list-style: none; margin: 0.8rem 0 1.2rem; }
+.night-result-card .eliminated {
+  color: var(--danger);
+  font-size: 1.15rem;
+  font-weight: 600;
+  padding: 0.25rem 0;
+}
+.night-result-card .shield-msg {
+  color: var(--role-alchemist);
+  font-style: italic;
+  margin-bottom: 0.75rem;
+}
+.night-result-card .next-phase {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.ws-indicator {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  font-family: 'Cinzel', serif;
+  color: var(--text-dim);
+  letter-spacing: 0.05em;
+  z-index: 50;
+}
+.ws-indicator__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--text-dim);
+  transition: background 0.3s;
+}
+.ws-indicator--connected .ws-indicator__dot { background: var(--success); }
+
