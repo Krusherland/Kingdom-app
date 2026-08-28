@@ -1,7 +1,7 @@
 .role-card {
   max-width: 380px;
   width: 90%;
-  background: var(--surface-2);
+  background: linear-gradient(160deg, var(--surface-2) 0%, var(--surface-3) 100%);
   border: 2px solid var(--rc, var(--gold));
   border-radius: 6px;
   padding: 2rem 1.75rem;
@@ -22,11 +22,11 @@
 }
 
 .role-card__name {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-accent);
   font-size: 1.6rem;
-  font-weight: 700;
+  font-weight: 400;
   color: var(--rc, var(--gold));
-  letter-spacing: 0.08em;
+  letter-spacing: 0.05em;
   margin-bottom: 0.5rem;
 }
 

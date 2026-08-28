@@ -19,7 +19,7 @@
   filter: drop-shadow(0 0 10px var(--gold-glow));
 }
 
-.wg__header h2 { margin-bottom: 0.5rem; }
+.wg__header h2 { font-family: var(--font-accent); font-weight: 400; margin-bottom: 0.5rem; }
 .wg__header .text-muted { font-size: 0.95rem; }
 
 .wg__body {

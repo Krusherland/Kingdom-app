@@ -11,8 +11,8 @@
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(74,133,200,0.04) 0%, transparent 50%),
-    radial-gradient(ellipse at 20% 80%, rgba(160,109,200,0.04) 0%, transparent 40%);
+    radial-gradient(ellipse at 50% 0%, rgba(56,112,164,0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 80%, rgba(120,88,164,0.05) 0%, transparent 40%);
   pointer-events: none;
   z-index: 0;
 }
@@ -32,8 +32,10 @@
 }
 
 .night__header h2 {
+  font-family: var(--font-accent);
+  font-weight: 400;
   font-size: 1.8rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   color: var(--gold);
 }
 

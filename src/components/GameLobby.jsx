@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import logo from '../assets/kingdom-logo2.png'
+import logo from '../assets/Kingdom-logo-no-bg.png'
 import './GameLobby.css'
 
 export default function GameLobby({ session, gameState, onStart, onLeave }) {

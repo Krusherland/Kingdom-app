@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Uncial+Antiqua&display=swap');
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -7,38 +7,49 @@
 }
 
 :root {
-  --bg-deep:    #0a0603;
-  --bg-main:    #130c04;
-  --surface-1:  #1e1409;
-  --surface-2:  #2a1d0e;
-  --surface-3:  #362513;
-  --surface-hover: #3f2d18;
+  --bg-deep:    #080604;
+  --bg-main:    #0e0a04;
+  --surface-1:  #181308;
+  --surface-2:  #221a0c;
+  --surface-3:  #2c2210;
+  --surface-hover: #342a14;
 
-  --gold:       #c9a227;
-  --gold-light: #e8c84a;
-  --gold-dark:  #7a6218;
-  --gold-dim:   rgba(201, 162, 39, 0.12);
-  --gold-glow:  rgba(201, 162, 39, 0.35);
+  /* Tarnished, weathered gold */
+  --gold:       #9e8840;
+  --gold-light: #b8a050;
+  --gold-dark:  #655c20;
+  --gold-dim:   rgba(158, 136, 64, 0.12);
+  --gold-glow:  rgba(158, 136, 64, 0.28);
 
-  --text-primary: #f0e6d3;
-  --text-muted:   #9c8566;
-  --text-dim:     #5a4a35;
+  /* Aged parchment text */
+  --text-primary: #cec0a0;
+  --text-muted:   #8a7860;
+  --text-dim:     #4a3c2a;
 
-  --role-plebeian:  #c49a52;
-  --role-alchemist: #a06dc8;
-  --role-guard:     #4a85c8;
-  --role-outsider:  #c83030;
+  /* Earthy tones */
+  --stone:       #5c5650;
+  --stone-light: #8a837a;
+  --moss:        #3d5030;
+  --moss-light:  #587244;
 
-  --danger:  #c83030;
-  --success: #3a8a3a;
-  --info:    #4a85c8;
+  /* Muted role colours */
+  --role-plebeian:  #b09040;
+  --role-alchemist: #7858a4;
+  --role-guard:     #3870a4;
+  --role-outsider:  #a02828;
 
-  --border:        rgba(201, 162, 39, 0.2);
-  --border-strong: rgba(201, 162, 39, 0.45);
+  --danger:  #a02828;
+  --success: #3a7a3a;
+  --info:    #3870a4;
 
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.5);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.65);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.75);
+  --border:        rgba(158, 136, 64, 0.18);
+  --border-strong: rgba(158, 136, 64, 0.38);
+
+  --shadow-sm: 0 2px 8px  rgba(0, 0, 0, 0.6);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.72);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.82);
+
+  --font-accent: 'Uncial Antiqua', 'Cinzel', serif;
 }
 
 html, body, #root {
@@ -55,7 +66,15 @@ body {
   min-height: 100vh;
 }
 
-h1, h2, h3, h4, h5 {
+h1 {
+  font-family: var(--font-accent);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--gold);
+  line-height: 1.2;
+}
+
+h2, h3, h4, h5 {
   font-family: 'Cinzel', Georgia, serif;
   font-weight: 700;
   letter-spacing: 0.05em;
@@ -152,6 +171,28 @@ a:hover { color: var(--gold-light); }
   border-radius: 4px;
   padding: 1.5rem;
   box-shadow: var(--shadow-md);
+  position: relative;
+}
+.card::before,
+.card::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: var(--gold-dark);
+  border-style: solid;
+  opacity: 0.45;
+  pointer-events: none;
+}
+.card::before {
+  top: 3px;
+  left: 3px;
+  border-width: 1px 0 0 1px;
+}
+.card::after {
+  bottom: 3px;
+  right: 3px;
+  border-width: 0 1px 1px 0;
 }
 
 /* ── Overlay ─────────────────────────────────────────────────── */
@@ -176,9 +217,30 @@ a:hover { color: var(--gold-light); }
 .text-info    { color: var(--info); }
 
 .divider {
+  position: relative;
   height: 1px;
-  background: var(--border);
   margin: 1rem 0;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    var(--border) 15%,
+    var(--border) 43%,
+    transparent 43%,
+    transparent 57%,
+    var(--border) 57%,
+    var(--border) 85%,
+    transparent 100%
+  );
+}
+.divider::after {
+  content: '\2726';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--gold-dark);
+  font-size: 0.5rem;
+  line-height: 1;
 }
 
 /* ── Role badges ──────────────────────────────────────────────── */
@@ -193,10 +255,10 @@ a:hover { color: var(--gold-light); }
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
-.badge-plebeian  { background: rgba(196,154,82,0.18);  color: var(--role-plebeian);  border: 1px solid rgba(196,154,82,0.4); }
-.badge-alchemist { background: rgba(160,109,200,0.18); color: var(--role-alchemist); border: 1px solid rgba(160,109,200,0.4); }
-.badge-guard     { background: rgba(74,133,200,0.18);  color: var(--role-guard);     border: 1px solid rgba(74,133,200,0.4); }
-.badge-outsider  { background: rgba(200,48,48,0.18);   color: var(--role-outsider);  border: 1px solid rgba(200,48,48,0.4); }
+.badge-plebeian  { background: rgba(176,144,64,0.15);  color: var(--role-plebeian);  border: 1px solid rgba(176,144,64,0.35); }
+.badge-alchemist { background: rgba(120,88,164,0.15);  color: var(--role-alchemist); border: 1px solid rgba(120,88,164,0.35); }
+.badge-guard     { background: rgba(56,112,164,0.15);  color: var(--role-guard);     border: 1px solid rgba(56,112,164,0.35); }
+.badge-outsider  { background: rgba(160,40,40,0.15);   color: var(--role-outsider);  border: 1px solid rgba(160,40,40,0.35); }
 
 /* ── Input ────────────────────────────────────────────────────── */
 
@@ -222,10 +284,10 @@ a:hover { color: var(--gold-light); }
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  font-family: 'Cinzel', serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+  font-family: var(--font-accent);
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
   color: var(--text-muted);
   margin-bottom: 1rem;
 }
