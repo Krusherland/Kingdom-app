@@ -171,3 +171,69 @@
 
 .night__player-name { flex: 1; }
 .night__player-score { font-size: 0.8rem; }
+
+/* Night timer */
+.night__timer {
+  font-family: 'Cinzel', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  text-align: center;
+  padding: 0.25rem 0;
+}
+
+.night__timer--myturn {
+  font-size: 2rem;
+  padding: 0.4rem 0;
+}
+
+.night__timer--urgent {
+  color: #e05c5c;
+  animation: night-timer-pulse 0.6s ease-in-out infinite;
+}
+
+@keyframes night-timer-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+/* Waiting for turn */
+.night__waiting-turn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.5rem 0;
+  width: 100%;
+  text-align: center;
+}
+
+.night__current-actor {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+/* Vote badge in player list */
+.night__vote-badge {
+  font-size: 0.75rem;
+  color: var(--gold);
+  background: var(--gold-dim);
+  border: 1px solid var(--border-strong);
+  border-radius: 3px;
+  padding: 0.1rem 0.4rem;
+  white-space: nowrap;
+}
+
+/* Pulsing dot for the player currently acting */
+.night__acting-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+  animation: night-timer-pulse 0.8s ease-in-out infinite;
+}
+

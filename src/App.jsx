@@ -74,6 +74,9 @@ export default function App() {
         setNightResult(null)
         fetchMyState()
         break
+      case 'NIGHT_ACTOR_CHANGED':
+        setGameState(payload)
+        break
       case 'NIGHT_RESULT':
         setNightResult(payload)
         fetchMyState()

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './NightPhase.css'
 
 const ACTION_CONFIG = {
@@ -19,6 +19,18 @@ export default function NightPhase({ session, gameState, myState, onAction }) {
   const hasActed = myState?.hasActedThisNight
 
   const cfg = ACTION_CONFIG[myRole]
+
+  const nightActorNick = gameState?.currentNightActorNickname
+  const isMyTurn = isAlive && nightActorNick === session?.nickname
+  const nightVotes = gameState?.nightVotes ?? []
+  const voteMap = Object.fromEntries(nightVotes.map(v => [v.targetNickname, v.count]))
+
+  const [timeLeft, setTimeLeft] = useState(15)
+  useEffect(() => {
+    setTimeLeft(15)
+    const id = setInterval(() => setTimeLeft(t => Math.max(0, t - 1)), 1000)
+    return () => clearInterval(id)
+  }, [nightActorNick])
 
   // Targets: alive players, excluding self (except Alchemist who can self-shield)
   const targets = alive.filter((p) => {
@@ -71,9 +83,18 @@ export default function NightPhase({ session, gameState, myState, onAction }) {
             </div>
           )}
 
-          {isAlive && !hasActed && cfg && (
+          {isAlive && !hasActed && nightActorNick && !isMyTurn && (
+            <div className="night__waiting-turn">
+              <p className="text-muted">Turno de</p>
+              <span className="night__current-actor text-gold">{nightActorNick}</span>
+              <div className={`night__timer${timeLeft <= 5 ? ' night__timer--urgent' : ''}`}>{timeLeft}s</div>
+            </div>
+          )}
+
+          {isAlive && !hasActed && cfg && isMyTurn && (
             <>
               <p className="night__prompt">{cfg.prompt}</p>
+              <div className={`night__timer night__timer--myturn${timeLeft <= 5 ? ' night__timer--urgent' : ''}`}>{timeLeft}s</div>
 
               <ul className="night__targets">
                 {targets.map((p) => (
@@ -133,8 +154,12 @@ export default function NightPhase({ session, gameState, myState, onAction }) {
                     <span className="text-dim"> (tú)</span>
                   )}
                 </span>
-                <span className="night__player-score text-dim">{p.score} pts</span>
-                {!p.alive && <span className="text-dim">✝</span>}
+                <span className="night__player-score text-dim">{p.score} pts</span>                {voteMap[p.nickname] > 0 && (
+                  <span className="night__vote-badge">⚖ {voteMap[p.nickname]}</span>
+                )}
+                {p.nickname === nightActorNick && p.alive && (
+                  <span className="night__acting-dot" title="Actuando ahora" />
+                )}                {!p.alive && <span className="text-dim">✝</span>}
               </li>
             ))}
           </ul>
