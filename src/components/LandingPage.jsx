@@ -98,11 +98,11 @@ export default function LandingPage({ session, onAuth, onShowStats }) {
               <h3>¿Cómo se juega?</h3>
               <div className="divider" />
               <ul className="landing__rules-list">
-                <li>🎨 <strong>Dibuja</strong> tu palabra asignada cada ronda.</li>
-                <li>🌑 <strong>Actúa en la noche</strong> según tu rol secreto.</li>
-                <li>🔍 Los <strong>Inocentes</strong> deben exponer a los Forasteros.</li>
-                <li>🗡 Los <strong>Forasteros</strong> deben eliminar a todos los inocentes.</li>
-                <li>📜 Tras 3 rondas, <strong>descifra la palabra</strong> para ganar puntos.</li>
+                <li> ✦ <strong>Dibuja</strong> tu palabra asignada cada ronda.</li>
+                <li> ✦ <strong>Actúa en la noche</strong> según tu rol secreto.</li>
+                <li> ✦ Los <strong>Inocentes</strong> deben exponer a los Forasteros.</li>
+                <li> ✦ Los <strong>Forasteros</strong> deben eliminar a todos los inocentes.</li>
+                <li> ✦Tras 3 rondas, <strong>descifra la palabra</strong> para ganar puntos.</li>
               </ul>
               <div className="divider" />
               <div className="landing__roles">
