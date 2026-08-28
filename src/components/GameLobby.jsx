@@ -21,8 +21,6 @@ export default function GameLobby({ session, gameState, onStart, onLeave }) {
   return (
     <div className="lobby">
       <header className="lobby__header">
-        <img src={logo} alt="Kingdom" className="lobby__crown" />
-        <h1>Kingdom</h1>
         <div className="lobby__code-row">
           <span className="lobby__code-label text-muted">Código de sala</span>
           <span className="lobby__code">{gameState?.gameCode}</span>

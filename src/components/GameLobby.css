@@ -7,7 +7,7 @@
 }
 
 .lobby__teaser-logo {
-  width: 80px;
+  width: 140px;
   height: auto;
   filter: drop-shadow(0 0 12px rgba(158, 136, 64, 0.4))
           drop-shadow(0 4px 12px rgba(0, 0, 0, 0.8));
