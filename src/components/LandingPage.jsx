@@ -132,13 +132,13 @@ export default function LandingPage({ session, onAuth, onShowStats }) {
 
             <div className="landing__actions">
               <button className="btn btn-gold btn-lg" onClick={() => setMode('create')}>
-                ⚔ Crear Partida
+                ✦ Crear Partida
               </button>
               <button className="btn btn-outline btn-lg" onClick={() => setMode('join')}>
-                🚪 Unirse a Partida
+                ✦ Unirse a Partida
               </button>
               <button className="btn btn-ghost" onClick={onShowStats}>
-                📜 Ver Estadísticas
+                ✦ Ver Estadísticas
               </button>
             </div>
 
