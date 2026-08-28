@@ -102,7 +102,7 @@ export default function LandingPage({ session, onAuth, onShowStats }) {
                 <li> ✦ <strong>Actúa en la noche</strong> según tu rol secreto.</li>
                 <li> ✦ Los <strong>Inocentes</strong> deben exponer a los Forasteros.</li>
                 <li> ✦ Los <strong>Forasteros</strong> deben eliminar a todos los inocentes.</li>
-                <li> ✦Tras 3 rondas, <strong>descifra la palabra</strong> para ganar puntos.</li>
+                <li> ✦ Tras 3 rondas, <strong>descifra la palabra</strong> para ganar puntos.</li>
               </ul>
               <div className="divider" />
               <div className="landing__roles">
