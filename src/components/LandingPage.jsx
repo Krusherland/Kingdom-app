@@ -13,6 +13,7 @@ const ROLES = [
     label: 'Plebeyo',
     badgeClass: 'badge-plebeian',
     img: plebeianImg,
+    ability: 'Vota cada noche para eliminar a un sospechoso.',
     desc: 'Un ciudadano leal del reino. Trabaja junto a los inocentes para descubrir al Forastero antes de que sea demasiado tarde.',
     color: 'var(--role-plebeian)',
   },
@@ -21,6 +22,7 @@ const ROLES = [
     label: 'Alquimista',
     badgeClass: 'badge-alchemist',
     img: alchemistImg,
+    ability: 'Protege a un jugador del peligro cada noche.',
     desc: 'Sabio de las artes arcanas. Cada noche puede ungir a un jugador con su elixir protector, salvándolo de la eliminación.',
     color: 'var(--role-alchemist)',
   },
@@ -29,6 +31,7 @@ const ROLES = [
     label: 'Guardia Real',
     badgeClass: 'badge-guard',
     img: guardImg,
+    ability: 'Revela en secreto la identidad de un jugador.',
     desc: 'Protector de la corona. En las sombras puede revelar el verdadero rol de cualquier sospechoso del reino.',
     color: 'var(--role-guard)',
   },
@@ -37,6 +40,7 @@ const ROLES = [
     label: 'Forastero',
     badgeClass: 'badge-outsider',
     img: outsiderImg,
+    ability: 'Elimina inocentes y mantén tu disfraz oculto.',
     desc: 'Un infiltrado sin nombre ni pasado. Su objetivo: eliminar a los inocentes en la oscuridad sin ser descubierto.',
     color: 'var(--role-outsider)',
   },
@@ -48,11 +52,6 @@ export default function LandingPage({ session, onAuth, onShowStats }) {
   const [joinCode, setJoinCode] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const [selectedRole, setSelectedRole] = useState(null)
-
-  const handleRoleClick = (roleKey) => {
-    setSelectedRole(prev => prev?.key === roleKey ? null : ROLES.find(r => r.key === roleKey))
-  }
 
   const handleCreate = async (e) => {
     e.preventDefault()
@@ -97,37 +96,63 @@ export default function LandingPage({ session, onAuth, onShowStats }) {
             <div className="landing__rules card">
               <h3>¿Cómo se juega?</h3>
               <div className="divider" />
-              <ul className="landing__rules-list">
-                <li> ✦ <strong>Dibuja</strong> tu palabra asignada cada ronda.</li>
-                <li> ✦ <strong>Actúa en la noche</strong> según tu rol secreto.</li>
-                <li> ✦ Los <strong>Inocentes</strong> deben exponer a los Forasteros.</li>
-                <li> ✦ Los <strong>Forasteros</strong> deben eliminar a todos los inocentes.</li>
-                <li> ✦ Tras 3 rondas, <strong>descifra la palabra</strong> para ganar puntos.</li>
-              </ul>
-              <div className="divider" />
-              <div className="landing__roles">
-                {ROLES.map(role => (
-                  <button
-                    key={role.key}
-                    type="button"
-                    className={`badge ${role.badgeClass}${selectedRole?.key === role.key ? ' is-active' : ''}`}
-                    onClick={() => handleRoleClick(role.key)}
-                  >
-                    {role.label}
-                  </button>
-                ))}
-              </div>
-              {selectedRole && (
-                <div className="landing__role-reveal" key={selectedRole.key}>
-                  <img src={selectedRole.img} alt={selectedRole.label} className="landing__role-img" />
-                  <div className="landing__role-info">
-                    <h4 className="landing__role-name" style={{ color: selectedRole.color }}>
-                      {selectedRole.label}
-                    </h4>
-                    <p className="landing__role-desc">{selectedRole.desc}</p>
+
+              <div className="landing__phases">
+                <div className="landing__phase">
+                  <span className="landing__phase-icon">🎨</span>
+                  <div className="landing__phase-body">
+                    <h4 className="landing__phase-title">Ronda de Dibujo</h4>
+                    <p className="landing__phase-desc">
+                      Cada jugador dibuja su palabra asignada. Los inocentes comparten la misma; el Forastero tiene una diferente.
+                    </p>
                   </div>
                 </div>
-              )}
+
+                <div className="landing__phase">
+                  <span className="landing__phase-icon">🌑</span>
+                  <div className="landing__phase-body">
+                    <h4 className="landing__phase-title">La Noche</h4>
+                    <p className="landing__phase-desc">
+                      Los roles actúan en secreto. El Forastero elimina, el Alquimista protege, la Guardia revela y los Plebeyos votan.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="landing__phase landing__phase--final">
+                  <span className="landing__phase-icon">⚖</span>
+                  <div className="landing__phase-body">
+                    <h4 className="landing__phase-title">
+                      Fase Final
+                      <span className="landing__phase-timer">30s</span>
+                    </h4>
+                    <p className="landing__phase-desc">
+                      Los <strong>Inocentes</strong> votan para eliminar al sospechoso.
+                      El <strong>Forastero</strong> intenta adivinar la palabra inocente para escapar.
+                      Quien actúe mejor, gana el Reino.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="divider" />
+              <h3 className="landing__roles-title">Los Roles</h3>
+
+              <div className="landing__role-grid">
+                {ROLES.map(role => (
+                  <div
+                    key={role.key}
+                    className="landing__role-card"
+                    style={{ '--rc': role.color }}
+                    title={role.desc}
+                  >
+                    <img src={role.img} alt={role.label} className="landing__role-card-img" />
+                    <span className={`badge ${role.badgeClass} landing__role-card-badge`}>
+                      {role.label}
+                    </span>
+                    <p className="landing__role-card-ability">{role.ability}</p>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div className="landing__actions">
