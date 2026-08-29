@@ -249,6 +249,54 @@
   animation: night-timer-pulse 0.8s ease-in-out infinite;
 }
 
+/* Two-step role progress indicator */
+.night__steps {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  width: 100%;
+  margin-bottom: 0.25rem;
+}
+
+.night__step-badge {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  background: var(--surface-1);
+}
+
+.night__step-badge--active {
+  border-color: var(--gold);
+  background: var(--gold-dim);
+  color: var(--gold);
+}
+
+.night__step-badge--done {
+  border-color: var(--success);
+  background: rgba(78,160,78,0.15);
+  color: var(--success);
+}
+
+.night__step-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.night__step-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  margin-left: 0.25rem;
+}
+
 /* Role image shown next to the acting player when it's the viewer's own turn */
 .night__acting-role-img {
   width: 24px;

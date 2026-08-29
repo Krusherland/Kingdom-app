@@ -12,6 +12,8 @@ const ACTION_CONFIG = {
   OUTSIDER:   { type: 'KILL',   label: 'Eliminar', icon: '🗡', img: outsiderImg,  prompt: 'Escoge a quién eliminar esta noche.' },
 }
 
+const VOTE_STEP = { type: 'VOTE', label: 'Votar', icon: '⚖', prompt: 'Ahora vota para eliminar al sospechoso.' }
+
 export default function NightPhase({ session, gameState, myState, onAction }) {
   const [target, setTarget] = useState(null)
   const [submitting, setSubmitting] = useState(false)
@@ -21,8 +23,13 @@ export default function NightPhase({ session, gameState, myState, onAction }) {
   const myRole = myState?.role
   const isAlive = myState?.alive !== false
   const hasActed = myState?.hasActedThisNight
+  const hasUsedSpecialAbility = myState?.hasUsedSpecialAbility ?? false
+  const isTwoStepRole = myRole === 'ALCHEMIST' || myRole === 'ROYAL_GUARD'
+  const isOnVoteStep = isTwoStepRole && hasUsedSpecialAbility
 
   const cfg = ACTION_CONFIG[myRole]
+  // For Alchemist/Guard on vote step, override with vote config (keep same role image)
+  const activeCfg = isOnVoteStep ? { ...VOTE_STEP, img: cfg?.img } : cfg
 
   const nightActorNick = gameState?.currentNightActorNickname
   const isMyTurn = isAlive && nightActorNick === session?.nickname
@@ -36,16 +43,17 @@ export default function NightPhase({ session, gameState, myState, onAction }) {
     return () => clearInterval(id)
   }, [nightActorNick])
 
-  // Targets: alive players, excluding self (except Alchemist who can self-shield)
+  // Targets: alive players, excluding self except Alchemist self-shield on step 1
   const targets = alive.filter((p) => {
-    if (p.nickname === session?.nickname) return myRole === 'ALCHEMIST'
+    if (p.nickname === session?.nickname) return myRole === 'ALCHEMIST' && !isOnVoteStep
     return true
   })
 
   const handleSubmit = async () => {
-    if (!target || !cfg) return
+    if (!target || !activeCfg) return
     setSubmitting(true)
-    await onAction(cfg.type, target)
+    await onAction(activeCfg.type, target)
+    setTarget(null) // reset selection between steps
     setSubmitting(false)
   }
 
@@ -94,9 +102,22 @@ export default function NightPhase({ session, gameState, myState, onAction }) {
             </div>
           )}
 
-          {isAlive && !hasActed && cfg && isMyTurn && (
+          {isAlive && !hasActed && activeCfg && isMyTurn && (
             <>
-              <p className="night__prompt">{cfg.prompt}</p>
+              {isTwoStepRole && (
+                <div className="night__steps">
+                  <span className={`night__step-badge ${!isOnVoteStep ? 'night__step-badge--active' : 'night__step-badge--done'}`}>
+                    {!isOnVoteStep ? '1' : '✓'}
+                  </span>
+                  <span className="night__step-line" />
+                  <span className={`night__step-badge ${isOnVoteStep ? 'night__step-badge--active' : ''}`}>2</span>
+                  <span className="night__step-label text-muted">
+                    {isOnVoteStep ? 'Votar' : (myRole === 'ALCHEMIST' ? 'Proteger' : 'Revelar')}
+                  </span>
+                </div>
+              )}
+
+              <p className="night__prompt">{activeCfg.prompt}</p>
 
               <ul className="night__targets">
                 {targets.map((p) => (
@@ -120,7 +141,7 @@ export default function NightPhase({ session, gameState, myState, onAction }) {
                 disabled={!target || submitting}
                 onClick={handleSubmit}
               >
-                {submitting ? 'Enviando…' : `${cfg.icon} ${cfg.label}`}
+                {submitting ? 'Enviando…' : `${activeCfg.icon} ${activeCfg.label}`}
               </button>
             </>
           )}
