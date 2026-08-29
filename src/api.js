@@ -63,6 +63,13 @@ export const api = {
       body: JSON.stringify({ word }),
     }),
 
+  submitFinalVote: (code, token, targetNickname) =>
+    request(`/games/${code}/final-vote`, {
+      method: 'POST',
+      headers: { 'X-Session-Token': token },
+      body: JSON.stringify({ targetNickname }),
+    }),
+
   getMyStats: (token) =>
     request('/stats/me', { headers: { 'X-Session-Token': token } }),
 

@@ -55,8 +55,8 @@
 
 .exit-game-btn {
   position: fixed;
-  top: 1rem;
-  left: 1rem;
+  top: 1.5rem;
+  left: 1.5rem;
   z-index: 100;
   font-size: 0.8rem;
   opacity: 0.7;

@@ -1,8 +1,8 @@
 import { useRef, useEffect, useState, useCallback } from 'react'
 import './DrawingCanvas.css'
 
-const CANVAS_W = 800
-const CANVAS_H = 500
+const CANVAS_W = 700
+const CANVAS_H = 400
 const DRAW_TIME = 60
 
 const COLORS = [

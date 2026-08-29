@@ -1,84 +1,134 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './WordGuessPhase.css'
 
-export default function WordGuessPhase({ session, gameState, myState, onGuess }) {
+const FINAL_TIME = 30
+
+export default function WordGuessPhase({ session, gameState, myState, onGuess, onFinalVote }) {
+  const isOutsider = myState?.role === 'OUTSIDER'
+  const hasActed = myState?.hasActedFinalPhase ?? false
+
   const [guess, setGuess] = useState('')
-  const [submitted, setSubmitted] = useState(myState?.guessedCorrectly ?? false)
-  const [result, setResult] = useState(myState?.guessedCorrectly ? true : null)
-  const [loading, setLoading] = useState(false)
+  const [voteTarget, setVoteTarget] = useState(null)
+  const [submitting, setSubmitting] = useState(false)
+  const [guessResult, setGuessResult] = useState(null)
+  const [timeLeft, setTimeLeft] = useState(FINAL_TIME)
 
   const players = gameState?.players ?? []
+  const alive = players.filter(p => p.alive)
+  const votableTargets = alive.filter(p => p.nickname !== session?.nickname)
 
-  const handleSubmit = async (e) => {
+  useEffect(() => {
+    setTimeLeft(FINAL_TIME)
+    const id = setInterval(() => setTimeLeft(t => Math.max(0, t - 1)), 1000)
+    return () => clearInterval(id)
+  }, [])
+
+  const handleGuessSubmit = async (e) => {
     e.preventDefault()
-    if (!guess.trim() || loading) return
-    setLoading(true)
+    if (!guess.trim() || submitting) return
+    setSubmitting(true)
     const correct = await onGuess(guess.trim())
-    setResult(correct)
-    setSubmitted(true)
-    setLoading(false)
+    setGuessResult(correct)
+    setSubmitting(false)
+  }
+
+  const handleVoteSubmit = async () => {
+    if (!voteTarget || submitting) return
+    setSubmitting(true)
+    await onFinalVote(voteTarget)
+    setSubmitting(false)
   }
 
   return (
     <div className="wg">
       <header className="wg__header">
         <div className="wg__scroll">📜</div>
-        <h2>Fase Final — La Palabra Verdadera</h2>
+        <h2>Fase Final — La Última Decisión</h2>
         <p className="text-muted">
-          Tras {gameState?.totalRounds} rondas de dibujo, ha llegado el momento de la verdad.
-          ¿Cuál era la palabra inocente?
+          {isOutsider
+            ? 'Adivina la palabra de los inocentes para escapar del Reino.'
+            : 'Vota para eliminar al sospechoso antes de que escape.'}
         </p>
+        <div className={`wg__timer${timeLeft <= 5 ? ' wg__timer--urgent' : ''}`}>{timeLeft}s</div>
       </header>
 
       <div className="wg__body">
-        <div className="wg__guess-panel card">
-          {!submitted ? (
+        <div className="wg__action-panel card">
+          {hasActed ? (
+            <div className="wg__result">
+              {isOutsider ? (
+                guessResult ? (
+                  <>
+                    <div className="wg__result-icon">⚔</div>
+                    <h3 className="text-success">¡Correcto! Has escapado.</h3>
+                    <p className="text-muted">Revelaste la palabra secreta.</p>
+                  </>
+                ) : (
+                  <>
+                    <div className="wg__result-icon">✗</div>
+                    <h3 className="text-danger">Incorrecto.</h3>
+                    <p className="text-muted">Tu intento de escape ha fallado.</p>
+                  </>
+                )
+              ) : (
+                <>
+                  <div className="wg__result-icon">⚖</div>
+                  <h3 className="text-success">✓ Voto enviado</h3>
+                  <p className="text-muted">Tu decisión ha sido registrada.</p>
+                </>
+              )}
+              <p className="wg__wait text-muted">Esperando a que todos actúen…</p>
+            </div>
+          ) : isOutsider ? (
             <>
               <p className="wg__hint text-muted">
-                {myState?.role === 'OUTSIDER'
-                  ? 'Eres el Forastero. Tu palabra era diferente. ¿Puedes adivinar la de los inocentes?'
-                  : 'Escribe la palabra que te fue asignada para ganar puntos.'}
+                Eres el Forastero. Si adivinas la palabra inocente, el Reino caerá.
               </p>
-              <form className="wg__form" onSubmit={handleSubmit}>
+              <form className="wg__form" onSubmit={handleGuessSubmit}>
                 <input
                   className="input wg__input"
                   type="text"
-                  placeholder="Escribe la palabra…"
+                  placeholder="Escribe la palabra inocente…"
                   value={guess}
                   onChange={(e) => setGuess(e.target.value)}
                   maxLength={40}
                   autoFocus
                 />
                 <button
-                  className="btn btn-gold btn-lg"
+                  className="btn btn-danger btn-lg"
                   type="submit"
-                  disabled={!guess.trim() || loading}
+                  disabled={!guess.trim() || submitting}
                 >
-                  {loading ? 'Enviando…' : '📜 Revelar'}
+                  {submitting ? 'Enviando…' : '⚔ Escapar'}
                 </button>
               </form>
             </>
           ) : (
-            <div className="wg__result">
-              {result ? (
-                <>
-                  <div className="wg__result-icon">✨</div>
-                  <h3 className="text-success">¡Correcto! +10 puntos</h3>
-                  <p className="text-muted">Tu palabra fue aceptada.</p>
-                </>
-              ) : (
-                <>
-                  <div className="wg__result-icon">✗</div>
-                  <h3 className="text-danger">Incorrecto</h3>
-                  <p className="text-muted">
-                    {myState?.role === 'OUTSIDER'
-                      ? 'No lograste descifrar la palabra inocente.'
-                      : 'Esa no era la palabra asignada.'}
-                  </p>
-                </>
-              )}
-              <p className="wg__wait text-muted">Esperando que todos completen la fase…</p>
-            </div>
+            <>
+              <p className="wg__hint text-muted">
+                ¿Quién crees que es el Forastero? Vota para eliminarlo.
+              </p>
+              <ul className="wg__vote-list">
+                {votableTargets.map(p => (
+                  <li key={p.nickname}>
+                    <button
+                      className={`wg__vote-btn ${voteTarget === p.nickname ? 'wg__vote-btn--selected' : ''}`}
+                      onClick={() => setVoteTarget(p.nickname)}
+                    >
+                      <span className="wg__vote-dot" />
+                      {p.nickname}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+              <button
+                className="btn btn-gold btn-lg wg__submit-vote"
+                disabled={!voteTarget || submitting}
+                onClick={handleVoteSubmit}
+              >
+                {submitting ? 'Enviando…' : '⚖ Votar'}
+              </button>
+            </>
           )}
         </div>
 

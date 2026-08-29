@@ -93,7 +93,7 @@ export default function GameLobby({ session, gameState, onStart, onLeave }) {
             disabled={!canStart || starting}
             onClick={handleStart}
           >
-            {starting ? 'Iniciando…' : '⚔ Comenzar Partida'}
+            {starting ? 'Iniciando…' : 'Comenzar Partida'}
           </button>
 
           <button className="btn btn-ghost lobby__leave-btn" onClick={onLeave}>

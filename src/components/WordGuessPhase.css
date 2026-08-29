@@ -22,6 +22,25 @@
 .wg__header h2 { font-family: var(--font-accent); font-weight: 400; margin-bottom: 0.5rem; }
 .wg__header .text-muted { font-size: 0.95rem; }
 
+.wg__timer {
+  font-family: 'Cinzel', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  margin-top: 0.75rem;
+}
+
+.wg__timer--urgent {
+  color: #e05c5c;
+  animation: wg-timer-pulse 0.6s ease-in-out infinite;
+}
+
+@keyframes wg-timer-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
 .wg__body {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -96,3 +115,51 @@
 
 .wg__pname { flex: 1; }
 .wg__score { font-family: 'Cinzel', serif; font-size: 0.88rem; }
+
+/* Vote UI */
+.wg__vote-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 0.75rem;
+  width: 100%;
+}
+
+.wg__vote-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--text-primary);
+  font-family: 'Crimson Text', serif;
+  font-size: 1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.wg__vote-btn:hover { background: var(--surface-3); border-color: var(--gold-dark); }
+.wg__vote-btn--selected { background: var(--gold-dim); border-color: var(--gold); color: var(--gold); }
+
+.wg__vote-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-dim);
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.wg__vote-btn--selected .wg__vote-dot { background: var(--gold); }
+
+.wg__submit-vote { width: 100%; }
+
+.wg__action-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+}

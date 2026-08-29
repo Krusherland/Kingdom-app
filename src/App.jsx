@@ -142,6 +142,15 @@ export default function App() {
     }
   }, [session, fetchMyState])
 
+  const handleFinalVote = useCallback(async (targetNickname) => {
+    try {
+      await api.submitFinalVote(session.gameCode, session.token, targetNickname)
+      fetchMyState()
+    } catch (e) {
+      alert(e.message)
+    }
+  }, [session, fetchMyState])
+
   const handleLeaveGame = useCallback(async () => {
     if (session?.gameCode && session?.token) {
       try { await api.leaveGame(session.gameCode, session.token) } catch (_) {}
@@ -251,6 +260,7 @@ export default function App() {
           gameState={gameState}
           myState={myState}
           onGuess={handleGuess}
+          onFinalVote={handleFinalVote}
         />
       )}
       {status === 'FINISHED' && (

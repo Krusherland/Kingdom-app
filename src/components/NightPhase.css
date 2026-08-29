@@ -62,9 +62,11 @@
   gap: 0.75rem;
 }
 
-.night__role-icon {
-  font-size: 2.2rem;
-  filter: drop-shadow(0 0 8px currentColor);
+.night__role-img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px var(--gold-glow));
 }
 
 .night__dead,
@@ -141,6 +143,14 @@
 
 /* Players panel */
 .night__players { align-self: flex-start; }
+
+.night__players-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+.night__players-header .section-title { margin-bottom: 0; }
 
 .night__player-list {
   list-style: none;
@@ -237,5 +247,14 @@
   background: var(--gold);
   flex-shrink: 0;
   animation: night-timer-pulse 0.8s ease-in-out infinite;
+}
+
+/* Role image shown next to the acting player when it's the viewer's own turn */
+.night__acting-role-img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 4px var(--gold-glow));
 }
 

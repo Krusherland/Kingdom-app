@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react'
+import plebeianImg from '../assets/Plebeian.png'
+import alchemistImg from '../assets/Alchemist.png'
+import guardImg from '../assets/Royal-Guard.png'
+import outsiderImg from '../assets/Outsider.png'
 import './NightPhase.css'
 
 const ACTION_CONFIG = {
-  PLEBEIAN:   { type: 'VOTE',   label: 'Votar',    icon: '⚖', prompt: 'Vota para eliminar a un sospechoso.' },
-  ALCHEMIST:  { type: 'SHIELD', label: 'Proteger', icon: '⚗', prompt: 'Escoge a quién proteger esta noche.' },
-  ROYAL_GUARD:{ type: 'REVEAL', label: 'Revelar',  icon: '🛡', prompt: 'Descubre la identidad de un jugador.' },
-  OUTSIDER:   { type: 'KILL',   label: 'Eliminar', icon: '🗡', prompt: 'Escoge a quién eliminar esta noche.' },
+  PLEBEIAN:   { type: 'VOTE',   label: 'Votar',    icon: '⚖', img: plebeianImg,  prompt: 'Vota para eliminar a un sospechoso.' },
+  ALCHEMIST:  { type: 'SHIELD', label: 'Proteger', icon: '⚗', img: alchemistImg, prompt: 'Escoge a quién proteger esta noche.' },
+  ROYAL_GUARD:{ type: 'REVEAL', label: 'Revelar',  icon: '🛡', img: guardImg,     prompt: 'Descubre la identidad de un jugador.' },
+  OUTSIDER:   { type: 'KILL',   label: 'Eliminar', icon: '🗡', img: outsiderImg,  prompt: 'Escoge a quién eliminar esta noche.' },
 }
 
 export default function NightPhase({ session, gameState, myState, onAction }) {
@@ -60,7 +64,7 @@ export default function NightPhase({ session, gameState, myState, onAction }) {
         <div className="night__role-panel card">
           {myRole && cfg && (
             <>
-              <div className="night__role-icon">{cfg.icon}</div>
+              <img src={cfg.img} alt={myRole} className="night__role-img" />
               <div className={`night__role-name badge badge-${myRole.toLowerCase().replace('_', '')}`}>
                 {myRole === 'ROYAL_GUARD' ? 'Guardia Real' :
                  myRole === 'PLEBEIAN' ? 'Plebeyo' :
@@ -87,14 +91,12 @@ export default function NightPhase({ session, gameState, myState, onAction }) {
             <div className="night__waiting-turn">
               <p className="text-muted">Turno de</p>
               <span className="night__current-actor text-gold">{nightActorNick}</span>
-              <div className={`night__timer${timeLeft <= 5 ? ' night__timer--urgent' : ''}`}>{timeLeft}s</div>
             </div>
           )}
 
           {isAlive && !hasActed && cfg && isMyTurn && (
             <>
               <p className="night__prompt">{cfg.prompt}</p>
-              <div className={`night__timer night__timer--myturn${timeLeft <= 5 ? ' night__timer--urgent' : ''}`}>{timeLeft}s</div>
 
               <ul className="night__targets">
                 {targets.map((p) => (
@@ -143,7 +145,12 @@ export default function NightPhase({ session, gameState, myState, onAction }) {
 
         {/* Right: all players */}
         <div className="night__players card">
-          <div className="section-title">Jugadores</div>
+          <div className="night__players-header">
+            <div className="section-title">Jugadores</div>
+            {nightActorNick && (
+              <div className={`night__timer${timeLeft <= 5 ? ' night__timer--urgent' : ''}`}>{timeLeft}s</div>
+            )}
+          </div>
           <ul className="night__player-list">
             {players.map((p) => (
               <li key={p.nickname} className={`night__player ${!p.alive ? 'night__player--dead' : ''}`}>
@@ -158,7 +165,9 @@ export default function NightPhase({ session, gameState, myState, onAction }) {
                   <span className="night__vote-badge">⚖ {voteMap[p.nickname]}</span>
                 )}
                 {p.nickname === nightActorNick && p.alive && (
-                  <span className="night__acting-dot" title="Actuando ahora" />
+                  p.nickname === session?.nickname
+                    ? <img src={cfg?.img} alt="" className="night__acting-role-img" />
+                    : <span className="night__acting-dot" title="Actuando ahora" />
                 )}                {!p.alive && <span className="text-dim">✝</span>}
               </li>
             ))}

@@ -77,7 +77,7 @@ export default function GameFinished({ gameState, myState, onPlayAgain }) {
 
       <div className="gf__actions">
         <button className="btn btn-gold btn-lg" onClick={onPlayAgain}>
-          ⚔ Jugar de nuevo
+           Jugar de nuevo
         </button>
       </div>
     </div>

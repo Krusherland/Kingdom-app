@@ -40,7 +40,7 @@ export default function StatsPanel({ session, onBack }) {
         <button className="btn btn-ghost btn-sm stats__back" onClick={onBack}>
           ← Volver
         </button>
-        <div className="stats__crown">📜</div>
+        <div className="stats__crown"></div>
         <h2>Crónicas del Reino</h2>
       </header>
 
