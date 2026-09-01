@@ -331,6 +331,34 @@
 
 .landing__book-page .landing__phase-desc {
   color: #4a3018;
+  font-family: 'IM Fell English', 'Crimson Text', serif;
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.landing__proclamation {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  padding: 1rem 0.5rem;
+}
+
+.landing__proclamation-text {
+  font-family: 'IM Fell English', 'Crimson Text', serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: #3a200a;
+  text-align: justify;
+  text-indent: 1.4em;
+}
+
+.landing__proclamation-shout {
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #6b1a1a;
 }
 
 .landing__book-page .landing__phase-desc strong {

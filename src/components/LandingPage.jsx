@@ -122,35 +122,14 @@ export default function LandingPage({ session, onAuth, onShowStats }) {
                         Bienvenido de vuelta, <span>"{session.nickname}"</span>
                       </p>
                     )}
-                    <h3 className="landing__book-heading">¿Cómo se juega?</h3>
                     <p className="landing__book-ornament">— ✦ —</p>
-                    <div className="landing__phases">
-                      <div className="landing__phase">
-                        <div className="landing__phase-body">
-                          <h4 className="landing__phase-title">Ronda de Dibujo</h4>
-                          <p className="landing__phase-desc">
-                            Cada jugador dibuja su palabra asignada. Los inocentes comparten la misma; el Forastero tiene una diferente.
-                          </p>
-                        </div>
-                      </div>
-                      <div className="landing__phase">
-                        <div className="landing__phase-body">
-                          <h4 className="landing__phase-title">La Noche</h4>
-                          <p className="landing__phase-desc">
-                            Los roles actúan en secreto. El Forastero elimina, el Alquimista protege y vota, la Guardia revela y vota, y los Plebeyos votan para expulsar al sospechoso.
-                          </p>
-                        </div>
-                      </div>
-                      <div className="landing__phase landing__phase--final">
-                        <div className="landing__phase-body">
-                          <h4 className="landing__phase-title">Fase Final</h4>
-                          <p className="landing__phase-desc">
-                            Los <strong>Inocentes</strong> votan para eliminar al sospechoso.
-                            El <strong>Forastero</strong> intenta adivinar la palabra inocente para escapar.
-                            Quien actúe mejor, gana el Reino.
-                          </p>
-                        </div>
-                      </div>
+                    <div className="landing__proclamation">
+                      <p className="landing__proclamation-text">
+                        Las calles del reino están siendo asechadas por un forastero con intenciones poco cordiales.
+                      </p>
+                      <p className="landing__proclamation-text">
+                        Se te ha procurado una palabra. <span className="landing__proclamation-shout">NO LA DIFUNDAS;</span> en su lugar, sé lo más ambiguo que puedas al conversar con la gente, porque las calles también escuchan.
+                      </p>
                     </div>
                   </>
                 )}
