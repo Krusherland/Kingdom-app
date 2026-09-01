@@ -337,21 +337,35 @@
   line-height: 1.6;
 }
 
-.landing__proclamation {
+/* Stretch left page so proclamation fills the full height set by the right page */
+.landing__book-page--left {
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
-  padding: 1rem 0.5rem;
+}
+
+.landing__book-page--left .landing__book-page-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.landing__proclamation {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(1.1rem, 2.5vw, 2.2rem);
+  padding: 0.75rem 0.25rem;
 }
 
 .landing__proclamation-text {
   font-family: 'IM Fell English', 'Crimson Text', serif;
   font-style: italic;
-  font-size: 1.05rem;
-  line-height: 1.75;
+  font-size: clamp(1.05rem, 2.4vw, 1.65rem);
+  line-height: 1.85;
   color: #3a200a;
   text-align: justify;
-  text-indent: 1.4em;
+  text-indent: 1.6em;
 }
 
 .landing__proclamation-shout {
@@ -359,6 +373,18 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   color: #6b1a1a;
+}
+
+@media (max-width: 768px) {
+  .landing__book-page--left {
+    display: block;
+  }
+  .landing__book-page--left .landing__book-page-inner {
+    display: block;
+  }
+  .landing__proclamation-text {
+    font-size: 1.05rem;
+  }
 }
 
 .landing__book-page .landing__phase-desc strong {
