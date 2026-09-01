@@ -13,8 +13,8 @@ const ROLES = [
     label: 'Plebeyo',
     badgeClass: 'badge-plebeian',
     img: plebeianImg,
-    ability: 'Vota cada noche para eliminar a un sospechoso.',
-    desc: 'Un ciudadano leal del reino. Trabaja junto a los inocentes para descubrir al Forastero antes de que sea demasiado tarde.',
+    ability: 'Cada noche, junto a los demás leales, emites tu voto para expulsar al sospechoso.',
+    desc: 'Hombre del pueblo, leal a su reino y a sus vecinos.',
     color: 'var(--role-plebeian)',
   },
   {
@@ -22,8 +22,8 @@ const ROLES = [
     label: 'Alquimista',
     badgeClass: 'badge-alchemist',
     img: alchemistImg,
-    ability: 'Protege a un jugador del peligro cada noche.',
-    desc: 'Sabio de las artes arcanas. Cada noche puede ungir a un jugador con su elixir protector, salvándolo de la eliminación.',
+    ability: 'Cada noche unges a un jugador con tu elixir protector, salvándolo de ser eliminado.',
+    desc: 'En su taller colmado de redomas y pergaminos cifrados, el Alquimista teje defensas invisibles.',
     color: 'var(--role-alchemist)',
   },
   {
@@ -31,8 +31,8 @@ const ROLES = [
     label: 'Guardia Real',
     badgeClass: 'badge-guard',
     img: guardImg,
-    ability: 'Revela en secreto la identidad de un jugador.',
-    desc: 'Protector de la corona. En las sombras puede revelar el verdadero rol de cualquier sospechoso del reino.',
+    ability: 'Cada noche investigas en secreto la verdadera identidad de un jugador.',
+    desc: 'Jura lealtad a la corona y a nadie más. La Guardia Real opera en silencio, infiltrándose entre los sospechosos para arrancarles su secreto.',
     color: 'var(--role-guard)',
   },
   {
@@ -40,8 +40,8 @@ const ROLES = [
     label: 'Forastero',
     badgeClass: 'badge-outsider',
     img: outsiderImg,
-    ability: 'Elimina inocentes y mantén tu disfraz oculto.',
-    desc: 'Un infiltrado sin nombre ni pasado. Su objetivo: eliminar a los inocentes en la oscuridad sin ser descubierto.',
+    ability: 'Cada noche eliminas a un inocente. Al final, adivina la palabra correcta para escapar.',
+    desc: 'No tiene nombre. No tiene historia. Solo tiene un objetivo: infiltrarse entre los leales y desmantelarlos desde dentro.',
     color: 'var(--role-outsider)',
   },
 ]
@@ -111,69 +111,68 @@ export default function LandingPage({ session, onAuth, onShowStats }) {
               </p>
             )}
 
-            <div className="landing__content">
-              <div className="landing__rules card">
-                <h3>¿Cómo se juega?</h3>
-                <div className="divider" />
-
-                <div className="landing__phases">
-                  <div className="landing__phase">
-                    <span className="landing__phase-icon">🎨</span>
-                    <div className="landing__phase-body">
-                      <h4 className="landing__phase-title">Ronda de Dibujo</h4>
-                      <p className="landing__phase-desc">
-                        Cada jugador dibuja su palabra asignada. Los inocentes comparten la misma; el Forastero tiene una diferente.
-                      </p>
+            <div className="landing__book">
+              {/* Left page — Rules */}
+              <div className="landing__book-page landing__book-page--left">
+                <div className="landing__book-page-inner">
+                  <h3 className="landing__book-heading">¿Cómo se juega?</h3>
+                  <p className="landing__book-ornament">— ✦ —</p>
+                  <div className="landing__phases">
+                    <div className="landing__phase">
+                      <div className="landing__phase-body">
+                        <h4 className="landing__phase-title">Ronda de Dibujo</h4>
+                        <p className="landing__phase-desc">
+                          Cada jugador dibuja su palabra asignada. Los inocentes comparten la misma; el Forastero tiene una diferente.
+                        </p>
+                      </div>
                     </div>
-                  </div>
-
-                  <div className="landing__phase">
-                    <span className="landing__phase-icon">🌑</span>
-                    <div className="landing__phase-body">
-                      <h4 className="landing__phase-title">La Noche</h4>
-                      <p className="landing__phase-desc">
-                        Los roles actúan en secreto. El Forastero elimina, el Alquimista protege y vota, la Guardia revela y vota, y los Plebeyos votan para expulsar al sospechoso.
-                      </p>
+                    <div className="landing__phase">
+                      <div className="landing__phase-body">
+                        <h4 className="landing__phase-title">La Noche</h4>
+                        <p className="landing__phase-desc">
+                          Los roles actúan en secreto. El Forastero elimina, el Alquimista protege y vota, la Guardia revela y vota, y los Plebeyos votan para expulsar al sospechoso.
+                        </p>
+                      </div>
                     </div>
-                  </div>
-
-                  <div className="landing__phase landing__phase--final">
-                    <span className="landing__phase-icon">⚖</span>
-                    <div className="landing__phase-body">
-                      <h4 className="landing__phase-title">
-                        Fase Final
-                        <span className="landing__phase-timer">30s</span>
-                      </h4>
-                      <p className="landing__phase-desc">
-                        Los <strong>Inocentes</strong> votan para eliminar al sospechoso.
-                        El <strong>Forastero</strong> intenta adivinar la palabra inocente para escapar.
-                        Quien actúe mejor, gana el Reino.
-                      </p>
+                    <div className="landing__phase landing__phase--final">
+                      <div className="landing__phase-body">
+                        <h4 className="landing__phase-title">
+                          Fase Final
+                        </h4>
+                        <p className="landing__phase-desc">
+                          Los <strong>Inocentes</strong> votan para eliminar al sospechoso.
+                          El <strong>Forastero</strong> intenta adivinar la palabra inocente para escapar.
+                          Quien actúe mejor, gana el Reino.
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
+                <span className="landing__book-page-num">I</span>
               </div>
 
-              <div className="landing__roles-panel card">
-                <h3 className="landing__roles-title">Los Roles</h3>
-                <div className="divider" />
+              {/* Spine */}
+              <div className="landing__book-spine" />
 
-                <div className="landing__role-grid">
-                  {ROLES.map(role => (
-                    <div
-                      key={role.key}
-                      className="landing__role-card"
-                      style={{ '--rc': role.color }}
-                      title={role.desc}
-                    >
-                      <img src={role.img} alt={role.label} className="landing__role-card-img" />
-                      <span className={`badge ${role.badgeClass} landing__role-card-badge`}>
-                        {role.label}
-                      </span>
-                      <p className="landing__role-card-ability">{role.ability}</p>
-                    </div>
-                  ))}
+              {/* Right page — Roles */}
+              <div className="landing__book-page landing__book-page--right">
+                <div className="landing__book-page-inner">
+                  <h3 className="landing__book-heading">Los Roles</h3>
+                  <p className="landing__book-ornament">— ✦ —</p>
+                  <div className="landing__role-grid">
+                    {ROLES.map(role => (
+                      <div key={role.key} className="landing__role-card" style={{ '--rc': role.color }}>
+                        <img src={role.img} alt={role.label} className="landing__role-card-img" />
+                        <div className="landing__role-card-overlay">
+                          <span className={`badge ${role.badgeClass}`}>{role.label}</span>
+                          <p className="landing__role-card-ability">{role.ability}</p>
+                          <p className="landing__role-card-desc">{role.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
+                <span className="landing__book-page-num">II</span>
               </div>
             </div>
           </div>
