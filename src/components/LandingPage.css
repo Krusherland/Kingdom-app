@@ -46,6 +46,132 @@
   align-items: center;
 }
 
+/* ─── Bookmark tabs ─── */
+.landing__book-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
+
+.landing__book-tabs {
+  display: flex;
+  gap: 3px;
+  padding-left: 1.25rem;
+  align-self: flex-start;
+}
+
+.landing__book-tab {
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.45rem 1.1rem 0.5rem;
+  border: 1.5px solid transparent;
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: filter 0.15s ease, padding-bottom 0.12s ease;
+}
+
+.landing__book-tab--create {
+  background: linear-gradient(to bottom, #c4951e 0%, #a07810 100%);
+  color: #fdeab8;
+  border-color: rgba(80,50,0,0.55);
+  box-shadow: -1px -3px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.18);
+}
+
+.landing__book-tab--join {
+  background: linear-gradient(to bottom, #4d6e3a 0%, #364e27 100%);
+  color: #bcd89a;
+  border-color: rgba(20,38,10,0.55);
+  box-shadow: -1px -3px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+.landing__book-tab--stats {
+  background: linear-gradient(to bottom, #524c46 0%, #3e3934 100%);
+  color: #c8c0b0;
+  border-color: rgba(18,14,10,0.55);
+  box-shadow: -1px -3px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+.landing__book-tab:hover {
+  filter: brightness(1.22);
+}
+
+.landing__book-tab.is-active {
+  filter: brightness(1.28);
+  padding-bottom: 0.72rem;
+  margin-bottom: -1px;
+  position: relative;
+  z-index: 3;
+}
+
+@media (max-width: 520px) {
+  .landing__book-tabs { padding-left: 0.5rem; }
+  .landing__book-tab {
+    font-size: 0.65rem;
+    padding: 0.38rem 0.7rem 0.42rem;
+    letter-spacing: 0.06em;
+  }
+}
+
+/* ─── In-book form styles ─── */
+.landing__book-welcome {
+  font-size: 0.9rem;
+  color: #5a3a10;
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 0.65rem;
+}
+
+.landing__book-welcome span {
+  font-style: normal;
+  font-weight: 600;
+  color: #7a4e10;
+}
+
+.landing__book-form-hint {
+  font-size: 0.9rem;
+  color: #5a3810;
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.landing__book-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.landing__book-form .landing__label {
+  color: #5a3810;
+}
+
+.landing__book-page .input {
+  background: rgba(255,255,255,0.58);
+  border-color: rgba(100,65,15,0.45);
+  color: #2c1a08;
+}
+
+.landing__book-page .input::placeholder {
+  color: rgba(100,65,15,0.4);
+}
+
+.landing__book-page .input:focus {
+  border-color: rgba(100,65,15,0.72);
+  background: rgba(255,255,255,0.75);
+  box-shadow: 0 0 0 2px rgba(100,65,15,0.12);
+  outline: none;
+}
+
+.landing__book-page .landing__error {
+  font-size: 0.85rem;
+}
+
 /* ─── Book Layout ─── */
 .landing__book {
   display: flex;
