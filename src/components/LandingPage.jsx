@@ -225,7 +225,7 @@ export default function LandingPage({ session, onAuth, onShowStats }) {
       </main>
 
       <footer className="landing__footer text-dim">
-        Kingdom · 6–8 jugadores · 3 rondas
+          Kingdom · 4–8 jugadores · 3 rondas
       </footer>
     </div>
   )
