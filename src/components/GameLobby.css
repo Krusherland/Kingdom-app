@@ -26,8 +26,10 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: radial-gradient(ellipse at 50% 0%, rgba(201,162,39,0.05) 0%, transparent 55%),
-              var(--bg-deep);
+  background:
+    linear-gradient(rgba(8, 6, 4, 0.62), rgba(8, 6, 4, 0.84)),
+    url('../assets/Kingdom.png') center / cover fixed,
+    var(--bg-deep);
   padding: 1.5rem 1rem;
 }
 
