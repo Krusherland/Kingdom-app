@@ -10,7 +10,7 @@ export default function GameLobby({ session, gameState, onStart, onLeave }) {
   const isHost = players[0]?.nickname === session?.nickname
   // The backend doesn't expose isHost publicly, so we rely on trying to start
   const playerCount = players.length
-  const canStart = playerCount >= 6
+  const canStart = playerCount >= 4
 
   const handleStart = async () => {
     setStarting(true)
@@ -52,7 +52,7 @@ export default function GameLobby({ session, gameState, onStart, onLeave }) {
                 {i === 0 && <span className="badge badge-guard">Anfitrión</span>}
               </li>
             ))}
-            {Array.from({ length: Math.max(0, 6 - playerCount) }).map((_, i) => (
+            {Array.from({ length: Math.max(0, 4 - playerCount) }).map((_, i) => (
               <li key={`empty-${i}`} className="lobby__player lobby__player--empty">
                 <span className="lobby__player-order">{playerCount + i + 1}</span>
                 <span className="text-dim">Esperando jugador…</span>
@@ -61,7 +61,7 @@ export default function GameLobby({ session, gameState, onStart, onLeave }) {
           </ul>
           {!canStart && (
             <p className="lobby__hint text-muted">
-              Se necesitan al menos 6 jugadores para comenzar.
+              Se necesitan al menos 4 jugadores para comenzar.
             </p>
           )}
         </section>
