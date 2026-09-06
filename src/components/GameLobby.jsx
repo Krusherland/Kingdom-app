@@ -10,7 +10,7 @@ export default function GameLobby({ session, gameState, onStart, onLeave }) {
   const isHost = players[0]?.nickname === session?.nickname
   // The backend doesn't expose isHost publicly, so we rely on trying to start
   const playerCount = players.length
-    const canStart = playerCount >= 4
+  const canStart = playerCount >= 6
 
   const handleStart = async () => {
     setStarting(true)
@@ -61,7 +61,7 @@ export default function GameLobby({ session, gameState, onStart, onLeave }) {
           </ul>
           {!canStart && (
             <p className="lobby__hint text-muted">
-              Se necesitan al menos 4 jugadores para comenzar.
+              Se necesitan al menos 6 jugadores para comenzar.
             </p>
           )}
         </section>
@@ -88,13 +88,19 @@ export default function GameLobby({ session, gameState, onStart, onLeave }) {
               </div>
             </div>
           )}
-          <button
-            className="btn btn-gold btn-lg lobby__start-btn"
-            disabled={!canStart || starting}
-            onClick={handleStart}
-          >
-            {starting ? 'Iniciando…' : 'Comenzar Partida'}
-          </button>
+          {isHost ? (
+            <button
+              className="btn btn-gold btn-lg lobby__start-btn"
+              disabled={!canStart || starting}
+              onClick={handleStart}
+            >
+              {starting ? 'Iniciando…' : 'Comenzar Partida'}
+            </button>
+          ) : (
+            <p className="lobby__hint text-muted">
+              Solo el anfitrión puede iniciar la partida.
+            </p>
+          )}
 
           <button className="btn btn-ghost lobby__leave-btn" onClick={onLeave}>
             Salir del reino
