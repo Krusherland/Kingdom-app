@@ -71,22 +71,23 @@ export default function NightPhase({ session, gameState, myState, onAction }) {
         {/* Left: role panel */}
         <div className="night__role-panel card">
           {myRole && cfg && (
-            <>
+            <div className="night__role-portrait">
               <img src={cfg.img} alt={myRole} className="night__role-img" />
               <div className={`night__role-name badge badge-${myRole.toLowerCase().replace('_', '')}`}>
                 {myRole === 'ROYAL_GUARD' ? 'Guardia Real' :
                  myRole === 'PLEBEIAN' ? 'Plebeyo' :
                  myRole === 'ALCHEMIST' ? 'Alquimista' : 'Forastero'}
               </div>
-            </>
-          )}
-
-          {!isAlive && (
-            <div className="night__dead">
-              <p className="text-dim">Has sido eliminado.</p>
-              <p className="text-muted">Observas en silencio.</p>
             </div>
           )}
+
+          <div className="night__action-panel">
+            {!isAlive && (
+              <div className="night__dead">
+                <p className="text-dim">Has sido eliminado.</p>
+                <p className="text-muted">Observas en silencio.</p>
+              </div>
+            )}
 
           {isAlive && hasActed && (
             <div className="night__waited">
@@ -162,6 +163,7 @@ export default function NightPhase({ session, gameState, myState, onAction }) {
               ))}
             </div>
           )}
+          </div>
         </div>
 
         {/* Right: all players */}

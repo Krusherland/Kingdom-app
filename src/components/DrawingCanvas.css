@@ -3,16 +3,19 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  min-width: 0;
+    flex: 0 1 700px;
 }
 
 .dc__canvas-wrap {
   position: relative;
+    max-width: min(100%, 700px);
   width: 100%;
   border: 1px solid var(--border-strong);
   border-radius: 4px;
   overflow: hidden;
-  box-shadow: var(--shadow-md);
+    width: min(100%, 560px);
+    min-width: 320px;
+    resize: horizontal;
   background: #fff;
   /* Maintain 800:500 aspect ratio */
   aspect-ratio: 8 / 5;
