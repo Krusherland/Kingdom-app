@@ -47,22 +47,28 @@
   font-style: italic;
   margin-bottom: 0.75rem;
 }
-.night-result-card .next-phase {
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-}
 
 .exit-game-btn {
   position: fixed;
-  top: 1.5rem;
-  left: 1.5rem;
+  bottom: 2.8rem;
+  right: 1rem;
   z-index: 100;
-  font-size: 0.8rem;
-  opacity: 0.7;
-  transition: opacity 0.2s;
+  font-size: 1.1rem;
+  padding: 0.35rem 0.55rem;
+  line-height: 1;
+  background: rgba(20, 14, 8, 0.75);
+  border: 1px solid rgba(180, 140, 50, 0.35);
+  border-radius: 4px;
+  opacity: 0.85;
+  transition: all 0.2s;
+  cursor: pointer;
 }
-.exit-game-btn:hover { opacity: 1; }
+.exit-game-btn:hover {
+  opacity: 1;
+  background: rgba(40, 25, 12, 0.92);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
 
 .exit-modal-backdrop {
   position: fixed;

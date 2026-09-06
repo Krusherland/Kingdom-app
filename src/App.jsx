@@ -124,9 +124,9 @@ export default function App() {
     catch (e) { alert(e.message) }
   }, [session])
 
-  const handleAction = useCallback(async (actionType, targetNickname) => {
+  const handleAction = useCallback(async (actionType, targetNickname, voteTargetNickname) => {
     try {
-      await api.submitAction(session.gameCode, session.token, actionType, targetNickname)
+      await api.submitAction(session.gameCode, session.token, actionType, targetNickname, voteTargetNickname)
       fetchMyState()
     } catch (e) { alert(e.message) }
   }, [session, fetchMyState])
@@ -215,9 +215,10 @@ export default function App() {
       {(status === 'DRAWING' || status === 'NIGHT' || status === 'WORD_GUESS') && (
         <button
           className="btn btn-ghost exit-game-btn"
+          title="Salir de la partida"
           onClick={() => setShowExitModal(true)}
         >
-          🚪 Salir
+          🚪
         </button>
       )}
 
@@ -281,7 +282,7 @@ export default function App() {
 
 function NightResultOverlay({ result, onDismiss }) {
   useEffect(() => {
-    const t = setTimeout(onDismiss, 6000)
+    const t = setTimeout(onDismiss, 5000)
     return () => clearTimeout(t)
   }, [onDismiss])
 
@@ -305,7 +306,6 @@ function NightResultOverlay({ result, onDismiss }) {
         {result.shieldUsed && (
           <p className="shield-msg">⚗ Un alquimista protegió a alguien del peligro.</p>
         )}
-        <p className="next-phase">Siguiente fase: {result.nextPhase}</p>
         <button className="btn btn-gold" onClick={onDismiss}>Continuar</button>
       </div>
     </div>

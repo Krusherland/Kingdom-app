@@ -43,11 +43,11 @@ export const api = {
       headers: { 'X-Session-Token': token },
     }),
 
-  submitAction: (code, token, actionType, targetNickname) =>
+  submitAction: (code, token, actionType, targetNickname, voteTargetNickname) =>
     request(`/games/${code}/action`, {
       method: 'POST',
       headers: { 'X-Session-Token': token },
-      body: JSON.stringify({ actionType, targetNickname }),
+      body: JSON.stringify({ actionType, targetNickname, voteTargetNickname }),
     }),
 
   leaveGame: (code, token) =>

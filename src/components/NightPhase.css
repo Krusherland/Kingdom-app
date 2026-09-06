@@ -23,7 +23,7 @@
 
 .night__header {
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .night__logo {
@@ -52,20 +52,20 @@
 
 .night__body {
   display: grid;
-  grid-template-columns: minmax(0, 1.18fr) minmax(250px, 0.82fr);
+  grid-template-columns: minmax(280px, 1fr) minmax(300px, 1.2fr);
   gap: 22px;
-  max-width: 900px;
+  max-width: 960px;
   margin: 0 auto;
   width: 100%;
   filter: drop-shadow(0 14px 24px rgba(0, 0, 0, 0.55));
 }
 
-@media (max-width: 580px) {
+@media (max-width: 680px) {
   .night__body { grid-template-columns: 1fr; }
 }
 
 .night__role-panel,
-.night__players {
+.night__actions-panel {
   position: relative;
   min-width: 0;
   padding: 1.5rem;
@@ -77,7 +77,7 @@
 }
 
 .night__role-panel::before,
-.night__players::before {
+.night__actions-panel::before {
   content: '';
   position: absolute;
   inset: 8px;
@@ -85,11 +85,12 @@
   pointer-events: none;
 }
 
+/* Left page: Role & Lore */
 .night__role-panel {
   display: flex;
-  align-items: stretch;
-  padding: 0;
-  min-height: 300px;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
   border-radius: 4px 0 0 4px;
   box-shadow: inset -8px 0 16px rgba(0, 0, 0, 0.14);
   animation: night-role-enter 0.4s ease-out;
@@ -100,44 +101,83 @@
   to { opacity: 1; transform: translateX(0); }
 }
 
-.night__role-portrait {
-  width: 42%;
-  min-width: 125px;
-  padding: 1rem 0.65rem;
+.night__role-banner {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  background: rgba(100, 65, 10, 0.07);
-  border-right: 10px solid transparent;
-  border-image: linear-gradient(to bottom, #3a2508, #b07a20 50%, #3a2508) 1;
-  position: relative;
-  z-index: 1;
+  gap: 0.6rem;
 }
 
-.night__role-img {
-  width: min(100%, 150px);
-  aspect-ratio: 1;
-  height: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 4px 8px rgba(60, 32, 5, 0.38));
+.night__role-banner-frame {
+  width: 100%;
+  height: 210px;
+  border: 1px solid rgba(100, 65, 15, 0.4);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  padding: 0;
 }
 
-.night__role-name { text-align: center; }
+.night__role-banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
 
-.night__action-panel {
-  flex: 1;
-  min-width: 0;
-  padding: 1rem;
+.night__role-banner-frame:hover .night__role-banner-img {
+  transform: scale(1.05);
+}
+
+.night__role-title {
+  font-family: 'Cinzel', 'Uncial Antiqua', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 0.25rem;
+}
+
+/* Role text colors (no borders, no box backgrounds) */
+.role-color-plebeian   { color: #8a6214; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5); }
+.role-color-alchemist  { color: #6d338a; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5); }
+.role-color-royalguard { color: #1e5282; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5); }
+.role-color-outsider   { color: #9c1b1b; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5); }
+
+.night__role-details {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: 0.75rem;
-  background: transparent;
-  color: #2c1a08;
-  position: relative;
-  z-index: 1;
+  background: rgba(100, 65, 10, 0.06);
+  border: 1px solid rgba(100, 65, 15, 0.25);
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+.night__role-lore {
+  font-family: 'IM Fell English', 'Crimson Text', serif;
+  font-style: italic;
+  font-size: 0.98rem;
+  line-height: 1.45;
+  color: #3d240d;
+}
+
+.night__role-word {
+  font-size: 0.95rem;
+  padding-top: 0.4rem;
+  border-top: 1px dashed rgba(100, 65, 15, 0.3);
+}
+
+/* Right page: Actions, Timer, Players */
+.night__actions-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-radius: 0 4px 4px 0;
+  box-shadow: inset 8px 0 16px rgba(0, 0, 0, 0.14);
   animation: night-action-enter 0.45s 0.1s both ease-out;
 }
 
@@ -146,146 +186,26 @@
   to { opacity: 1; transform: translateX(0); }
 }
 
-.night__dead,
-.night__waited {
-  text-align: center;
-  width: 100%;
-  padding: 1rem 0;
-}
-
-.night__prompt {
-  color: #4a3018;
-  font-family: 'IM Fell English', 'Crimson Text', serif;
-  font-style: italic;
-  font-size: 1.05rem;
-  width: 100%;
-}
-
-.night__targets {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  width: 100%;
-}
-
-.night__target-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  width: 100%;
-  padding: 0.55rem 0.75rem;
-  background: rgba(100, 65, 10, 0.07);
-  border: 1px solid rgba(100, 65, 15, 0.3);
-  border-radius: 3px;
-  color: #3a200a;
-  font-family: 'IM Fell English', 'Crimson Text', serif;
-  font-size: 1rem;
-  text-align: left;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-.night__target-btn:hover {
-  background: rgba(100, 65, 10, 0.14);
-  border-color: #8b5e14;
-}
-.night__target-btn--selected {
-  background: rgba(154, 106, 24, 0.16);
-  border-color: #7a4e10;
-  color: #5a3210;
-}
-
-.night__target-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--text-dim);
-  flex-shrink: 0;
-  transition: background 0.15s;
-}
-.night__target-btn--selected .night__target-dot { background: var(--gold); }
-
-.night__submit-btn { width: 100%; }
-
-.night__reveals {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-
-.night__reveal-entry {
-  font-size: 0.88rem;
-  padding: 0.25rem 0;
-  border-bottom: 1px solid rgba(100, 65, 15, 0.22);
-}
-
-/* Players panel */
-.night__players {
-  align-self: stretch;
-  border-radius: 0 4px 4px 0;
-  box-shadow: inset 8px 0 16px rgba(0, 0, 0, 0.14);
-}
-
-.night__players-header {
+.night__timer-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.75rem;
-}
-.night__players-header .section-title { margin-bottom: 0; }
-
-.night__player-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
+  background: rgba(100, 65, 10, 0.08);
+  border: 1px solid rgba(100, 65, 15, 0.28);
+  padding: 0.5rem 0.85rem;
+  border-radius: 4px;
 }
 
-.night__player {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.4rem 0.5rem;
-  border-radius: 3px;
-  background: rgba(100, 65, 10, 0.07);
-  border: 1px solid rgba(100, 65, 15, 0.24);
-  color: #3a200a;
-  font-size: 0.92rem;
-}
-
-.night__player--dead { opacity: 0.4; }
-
-.night__player-status {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--text-dim);
-  flex-shrink: 0;
-}
-.night__player-status--alive { background: var(--success); }
-
-.night__player-name { flex: 1; }
-.night__player-score { font-size: 0.8rem; }
-
-/* Night timer */
 .night__timer {
   font-family: 'Cinzel', serif;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 700;
   color: #7a4e10;
   letter-spacing: 0.05em;
-  text-align: center;
-  padding: 0.25rem 0;
-}
-
-.night__timer--myturn {
-  font-size: 2rem;
-  padding: 0.4rem 0;
 }
 
 .night__timer--urgent {
-  color: #e05c5c;
+  color: #c02b2b;
   animation: night-timer-pulse 0.6s ease-in-out infinite;
 }
 
@@ -294,117 +214,165 @@
   50%       { opacity: 0.4; }
 }
 
-/* Waiting for turn */
-.night__waiting-turn {
+.night__actions-container {
+  background: rgba(100, 65, 10, 0.06);
+  border: 1px solid rgba(100, 65, 15, 0.25);
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+.night__form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.3rem;
-  padding: 0.5rem 0;
+  gap: 1rem;
+}
+
+.night__section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.night__section-title {
+  font-family: 'IM Fell English', 'Crimson Text', serif;
+  font-weight: 600;
+  font-size: 0.98rem;
+}
+
+.night__targets {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 0.4rem;
   width: 100%;
+}
+
+.night__target-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  width: 100%;
+  padding: 0.45rem 0.6rem;
+  background: rgba(100, 65, 10, 0.07);
+  border: 1px solid rgba(100, 65, 15, 0.3);
+  border-radius: 3px;
+  color: #3a200a;
+  font-family: 'IM Fell English', 'Crimson Text', serif;
+  font-size: 0.92rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.night__target-btn:hover {
+  background: rgba(100, 65, 10, 0.14);
+  border-color: #8b5e14;
+}
+
+.night__target-btn--selected {
+  background: rgba(154, 106, 24, 0.22);
+  border-color: #7a4e10;
+  color: #4a2908;
+  font-weight: 600;
+}
+
+.night__target-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-dim);
+  flex-shrink: 0;
+}
+.night__target-btn--selected .night__target-dot { background: var(--gold); }
+
+.night__submit-btn {
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+.night__dead,
+.night__waited {
   text-align: center;
+  padding: 0.8rem 0;
 }
 
-.night__current-actor {
-  font-family: 'Cinzel', serif;
-  font-size: 1.1rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+/* Players panel */
+.night__players {
+  background: rgba(100, 65, 10, 0.06);
+  border: 1px solid rgba(100, 65, 15, 0.25);
+  padding: 0.85rem;
+  border-radius: 4px;
 }
 
-/* Vote badge in player list */
+.night__player-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
+.night__player {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.35rem 0.5rem;
+  border-radius: 3px;
+  background: rgba(100, 65, 10, 0.07);
+  border: 1px solid rgba(100, 65, 15, 0.2);
+  color: #3a200a;
+  font-size: 0.9rem;
+}
+
+.night__player--dead { opacity: 0.45; }
+
+.night__player-status {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--text-dim);
+  flex-shrink: 0;
+}
+.night__player-status--alive { background: #2e7d32; }
+
+.night__player-name { flex: 1; }
+.night__player-score { font-size: 0.8rem; }
+
+.night__voted-badge {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #2e7d32;
+}
+
 .night__vote-badge {
   font-size: 0.75rem;
   color: #5a3210;
   background: rgba(154, 106, 24, 0.14);
   border: 1px solid rgba(100, 65, 15, 0.35);
+  padding: 0.1rem 0.35rem;
   border-radius: 3px;
-  padding: 0.1rem 0.4rem;
-  white-space: nowrap;
 }
 
-/* Pulsing dot for the player currently acting */
-.night__acting-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #8b5e14;
-  flex-shrink: 0;
-  animation: night-timer-pulse 0.8s ease-in-out infinite;
-}
-
-/* Two-step role progress indicator */
-.night__steps {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
+.night__reveals {
   width: 100%;
-  margin-bottom: 0.25rem;
-}
-
-.night__step-badge {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.72rem;
-  font-weight: 700;
-  flex-shrink: 0;
-  border: 1px solid rgba(100, 65, 15, 0.3);
-  color: #795a34;
-  background: rgba(100, 65, 10, 0.07);
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-top: 0.5rem;
 }
 
-.night__step-badge--active {
-  border-color: #8b5e14;
-  background: rgba(154, 106, 24, 0.16);
-  color: #5a3210;
-}
-
-.night__step-badge--done {
-  border-color: var(--success);
-  background: rgba(78,160,78,0.15);
-  color: var(--success);
-}
-
-.night__step-line {
-  flex: 1;
-  height: 1px;
-  background: rgba(100, 65, 15, 0.3);
-}
-
-.night__step-label {
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-  margin-left: 0.25rem;
-}
-
-/* Role image shown next to the acting player when it's the viewer's own turn */
-.night__acting-role-img {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
-  flex-shrink: 0;
-  filter: drop-shadow(0 2px 3px rgba(60, 32, 5, 0.35));
+.night__reveal-entry {
+  font-size: 0.88rem;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid rgba(100, 65, 15, 0.22);
 }
 
 @media (max-width: 580px) {
   .night { padding: 1.25rem 0.75rem; }
   .night__header { margin-bottom: 1rem; }
   .night__role-panel,
-  .night__players { border-radius: 4px; }
+  .night__actions-panel { border-radius: 4px; }
   .night__role-panel { box-shadow: inset 0 -8px 16px rgba(0, 0, 0, 0.1); }
-  .night__players { box-shadow: inset 0 8px 16px rgba(0, 0, 0, 0.1); }
-
-  .night__role-panel { min-height: 0; }
-
-  .night__role-portrait {
-    width: 38%;
-    min-width: 112px;
-  }
-
-  .night__role-img { width: 100px; }
+  .night__actions-panel { box-shadow: inset 0 8px 16px rgba(0, 0, 0, 0.1); }
 }
 
