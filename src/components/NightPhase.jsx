@@ -3,6 +3,7 @@ import plebeianImg from '../assets/Plebeian.png'
 import alchemistImg from '../assets/Alchemist.png'
 import guardImg from '../assets/Royal-Guard.png'
 import outsiderImg from '../assets/Outsider.png'
+import logo from '../assets/Kingdom-logo-no-bg.png'
 import './NightPhase.css'
 
 const ACTION_CONFIG = {
@@ -62,14 +63,14 @@ export default function NightPhase({ session, gameState, myState, onAction }) {
       <div className="night__bg" />
 
       <header className="night__header">
-        <div className="night__moon">🌑</div>
+        <img src={logo} alt="Kingdom" className="night__logo" />
         <h2>La Noche Cae</h2>
         <p className="text-muted">Ronda {gameState?.currentRound} — Fase nocturna</p>
       </header>
 
       <div className="night__body">
         {/* Left: role panel */}
-        <div className="night__role-panel card">
+        <section className="night__role-panel" aria-label="Tu acción nocturna">
           {myRole && cfg && (
             <div className="night__role-portrait">
               <img src={cfg.img} alt={myRole} className="night__role-img" />
@@ -164,10 +165,10 @@ export default function NightPhase({ session, gameState, myState, onAction }) {
             </div>
           )}
           </div>
-        </div>
+        </section>
 
         {/* Right: all players */}
-        <div className="night__players card">
+        <section className="night__players" aria-label="Jugadores de la partida">
           <div className="night__players-header">
             <div className="section-title">Jugadores</div>
             {nightActorNick && (
@@ -195,7 +196,7 @@ export default function NightPhase({ session, gameState, myState, onAction }) {
               </li>
             ))}
           </ul>
-        </div>
+        </section>
       </div>
     </div>
   )

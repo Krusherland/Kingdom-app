@@ -3,67 +3,95 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow: hidden;
-  background: var(--bg-deep);
+  isolation: isolate;
+  background:
+    linear-gradient(rgba(8, 6, 4, 0.66), rgba(8, 6, 4, 0.82)),
+    url('../assets/Kingdom-night.png') center / cover fixed,
+    var(--bg-deep);
+  padding: 2rem 1rem 1.5rem;
 }
 
 .night__bg {
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(56,112,164,0.05) 0%, transparent 50%),
-    radial-gradient(ellipse at 20% 80%, rgba(120,88,164,0.05) 0%, transparent 40%);
+    radial-gradient(ellipse at 50% 0%, rgba(255, 224, 143, 0.12), transparent 45%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.12), transparent 30%, transparent 70%, rgba(0, 0, 0, 0.12));
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
 }
 
 .night__header {
   text-align: center;
-  padding: 2rem 1rem 1.5rem;
-  position: relative;
-  z-index: 1;
+  margin-bottom: 1.5rem;
 }
 
-.night__moon {
-  font-size: 3rem;
-  line-height: 1;
-  filter: drop-shadow(0 0 12px rgba(74,133,200,0.4));
-  margin-bottom: 0.4rem;
+.night__logo {
+  width: clamp(180px, 36vw, 250px);
+  height: auto;
+  display: block;
+  margin: 0 auto 0.25rem;
+  filter: drop-shadow(0 0 22px rgba(201, 162, 39, 0.55)) drop-shadow(0 8px 28px rgba(0, 0, 0, 0.9));
 }
 
 .night__header h2 {
-  font-family: var(--font-accent);
+  font-family: 'Uncial Antiqua', 'Cinzel', serif;
   font-weight: 400;
-  font-size: 1.8rem;
-  letter-spacing: 0.1em;
-  color: var(--gold);
+  font-size: clamp(1.3rem, 3vw, 1.65rem);
+  letter-spacing: 0.12em;
+  color: #f1d783;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
+}
+
+.night__header .text-muted {
+  color: #c8b88d;
+  font-family: 'IM Fell English', 'Crimson Text', serif;
+  font-size: 1.05rem;
+  font-style: italic;
 }
 
 .night__body {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  max-width: 780px;
+  grid-template-columns: minmax(0, 1.18fr) minmax(250px, 0.82fr);
+  gap: 22px;
+  max-width: 900px;
   margin: 0 auto;
   width: 100%;
-  padding: 0 1rem 2rem;
-  position: relative;
-  z-index: 1;
+  filter: drop-shadow(0 14px 24px rgba(0, 0, 0, 0.55));
 }
 
 @media (max-width: 580px) {
   .night__body { grid-template-columns: 1fr; }
 }
 
+.night__role-panel,
+.night__players {
+  position: relative;
+  min-width: 0;
+  padding: 1.5rem;
+  color: #2c1a08;
+  background:
+    radial-gradient(ellipse at 18% 12%, rgba(255, 255, 255, 0.28), transparent 52%),
+    radial-gradient(ellipse at 82% 88%, rgba(0, 0, 0, 0.08), transparent 45%),
+    linear-gradient(160deg, #f8edcc 0%, #f0dfa4 38%, #f4e5b8 68%, #ebd794 100%);
+}
+
+.night__role-panel::before,
+.night__players::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(100, 65, 15, 0.38);
+  pointer-events: none;
+}
+
 .night__role-panel {
   display: flex;
   align-items: stretch;
   padding: 0;
-  overflow: hidden;
   min-height: 300px;
-  border: 2px solid var(--gold-dark);
-  background: linear-gradient(160deg, var(--surface-2) 0%, var(--surface-3) 100%);
-  box-shadow: 0 0 26px rgba(0, 0, 0, 0.55), 0 0 16px var(--gold-glow);
+  border-radius: 4px 0 0 4px;
+  box-shadow: inset -8px 0 16px rgba(0, 0, 0, 0.14);
   animation: night-role-enter 0.4s ease-out;
 }
 
@@ -81,8 +109,11 @@
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  background: radial-gradient(circle at center, var(--gold-dim), transparent 68%);
-  border-right: 1px solid var(--border-strong);
+  background: rgba(100, 65, 10, 0.07);
+  border-right: 10px solid transparent;
+  border-image: linear-gradient(to bottom, #3a2508, #b07a20 50%, #3a2508) 1;
+  position: relative;
+  z-index: 1;
 }
 
 .night__role-img {
@@ -90,7 +121,7 @@
   aspect-ratio: 1;
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 0 12px var(--gold-glow));
+  filter: drop-shadow(0 4px 8px rgba(60, 32, 5, 0.38));
 }
 
 .night__role-name { text-align: center; }
@@ -103,7 +134,10 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 0.75rem;
-  background: var(--surface-1);
+  background: transparent;
+  color: #2c1a08;
+  position: relative;
+  z-index: 1;
   animation: night-action-enter 0.45s 0.1s both ease-out;
 }
 
@@ -120,9 +154,10 @@
 }
 
 .night__prompt {
-  color: var(--text-muted);
+  color: #4a3018;
+  font-family: 'IM Fell English', 'Crimson Text', serif;
   font-style: italic;
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   width: 100%;
 }
 
@@ -140,24 +175,24 @@
   gap: 0.6rem;
   width: 100%;
   padding: 0.55rem 0.75rem;
-  background: var(--surface-1);
-  border: 1px solid var(--border);
+  background: rgba(100, 65, 10, 0.07);
+  border: 1px solid rgba(100, 65, 15, 0.3);
   border-radius: 3px;
-  color: var(--text-primary);
-  font-family: 'Crimson Text', serif;
+  color: #3a200a;
+  font-family: 'IM Fell English', 'Crimson Text', serif;
   font-size: 1rem;
   text-align: left;
   cursor: pointer;
   transition: all 0.15s;
 }
 .night__target-btn:hover {
-  background: var(--surface-3);
-  border-color: var(--gold-dark);
+  background: rgba(100, 65, 10, 0.14);
+  border-color: #8b5e14;
 }
 .night__target-btn--selected {
-  background: var(--gold-dim);
-  border-color: var(--gold);
-  color: var(--gold);
+  background: rgba(154, 106, 24, 0.16);
+  border-color: #7a4e10;
+  color: #5a3210;
 }
 
 .night__target-dot {
@@ -182,11 +217,15 @@
 .night__reveal-entry {
   font-size: 0.88rem;
   padding: 0.25rem 0;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid rgba(100, 65, 15, 0.22);
 }
 
 /* Players panel */
-.night__players { align-self: flex-start; }
+.night__players {
+  align-self: stretch;
+  border-radius: 0 4px 4px 0;
+  box-shadow: inset 8px 0 16px rgba(0, 0, 0, 0.14);
+}
 
 .night__players-header {
   display: flex;
@@ -209,8 +248,9 @@
   gap: 0.6rem;
   padding: 0.4rem 0.5rem;
   border-radius: 3px;
-  background: var(--surface-1);
-  border: 1px solid var(--border);
+  background: rgba(100, 65, 10, 0.07);
+  border: 1px solid rgba(100, 65, 15, 0.24);
+  color: #3a200a;
   font-size: 0.92rem;
 }
 
@@ -233,7 +273,7 @@
   font-family: 'Cinzel', serif;
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--gold);
+  color: #7a4e10;
   letter-spacing: 0.05em;
   text-align: center;
   padding: 0.25rem 0;
@@ -275,9 +315,9 @@
 /* Vote badge in player list */
 .night__vote-badge {
   font-size: 0.75rem;
-  color: var(--gold);
-  background: var(--gold-dim);
-  border: 1px solid var(--border-strong);
+  color: #5a3210;
+  background: rgba(154, 106, 24, 0.14);
+  border: 1px solid rgba(100, 65, 15, 0.35);
   border-radius: 3px;
   padding: 0.1rem 0.4rem;
   white-space: nowrap;
@@ -288,7 +328,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--gold);
+  background: #8b5e14;
   flex-shrink: 0;
   animation: night-timer-pulse 0.8s ease-in-out infinite;
 }
@@ -312,15 +352,15 @@
   font-size: 0.72rem;
   font-weight: 700;
   flex-shrink: 0;
-  border: 1px solid var(--border);
-  color: var(--text-dim);
-  background: var(--surface-1);
+  border: 1px solid rgba(100, 65, 15, 0.3);
+  color: #795a34;
+  background: rgba(100, 65, 10, 0.07);
 }
 
 .night__step-badge--active {
-  border-color: var(--gold);
-  background: var(--gold-dim);
-  color: var(--gold);
+  border-color: #8b5e14;
+  background: rgba(154, 106, 24, 0.16);
+  color: #5a3210;
 }
 
 .night__step-badge--done {
@@ -332,7 +372,7 @@
 .night__step-line {
   flex: 1;
   height: 1px;
-  background: var(--border);
+  background: rgba(100, 65, 15, 0.3);
 }
 
 .night__step-label {
@@ -347,10 +387,17 @@
   height: 24px;
   object-fit: contain;
   flex-shrink: 0;
-  filter: drop-shadow(0 0 4px var(--gold-glow));
+  filter: drop-shadow(0 2px 3px rgba(60, 32, 5, 0.35));
 }
 
 @media (max-width: 580px) {
+  .night { padding: 1.25rem 0.75rem; }
+  .night__header { margin-bottom: 1rem; }
+  .night__role-panel,
+  .night__players { border-radius: 4px; }
+  .night__role-panel { box-shadow: inset 0 -8px 16px rgba(0, 0, 0, 0.1); }
+  .night__players { box-shadow: inset 0 8px 16px rgba(0, 0, 0, 0.1); }
+
   .night__role-panel { min-height: 0; }
 
   .night__role-portrait {
